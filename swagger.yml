@@ -1,0 +1,77 @@
+swagger: "2.0"
+info:
+  title: Tuxedo Mask
+  description: A lightweight, minimalist Identity and Access Management microservice.  Get the source on [GitHub](https://github.com/dnguyen0304/tuxedo-mask).
+  version: "1.0"
+  contact:
+    email: dnguyen0304@gmail.com
+# host: api.mfitapp.io
+schemes:
+  - https
+basePath: /v1
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /accounts:
+    post:
+      description: Create a new user (i.e. "sign-up") for *Tuxedo Mask*.
+      parameters:
+        - in: body
+          name: account
+          description: Accounts object
+          required: true
+          schema:
+            $ref: "#/definitions/Accounts"
+      responses:
+        201:
+          headers:
+            Location:
+              type: string
+              description: Resource self URL.
+          description: An Accounts object was created successfully.
+          schema:
+            $ref: "#/definitions/ViewsBase"
+definitions:
+  Base:
+    type: object
+    discriminator: baseType
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+      baseType:
+        type: string
+    required:
+    - baseType
+  Accounts:
+    type: object
+    allOf:
+      - $ref: "#/definitions/Base"
+      - type: object
+        properties:
+          username:
+            type: string
+            description: A short, human-readable name by which to uniquely identify this Account.
+          password:
+            type: string
+            description: Password.
+        required:
+          - username
+          - password
+  ViewsBase:
+    type: object
+    properties:
+      data:
+        type: object
+        description: Serialized entity.
+      urls:
+        type: array
+        items:
+          type: string
