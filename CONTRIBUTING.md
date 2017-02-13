@@ -42,7 +42,8 @@ CREATE TABLE users (
     email_address   varchar(64)             PRIMARY KEY
 );
 ```
-- Tables **must** include UUIDs. The UUIDs **must** be named `<table_name>_uuid`.
+- Tables **must** include UUIDs.
+- The UUIDs **must** be named `<table_name>_uuid`.
 ```
 -- YES
 CREATE TABLE users (
@@ -77,3 +78,24 @@ CREATE TABLE foo (
 - Column constraints **should** trend towards being more restrictive.
 - Data type constraints **should** trend towards being more relaxed.
 - Datetime (data types that store both date and time) columns **must** include the time zone.
+
+Python
+------
+### General
+- Packages **should** have `__all__` indices in their `__init__.py`.
+- `__all__` indices **should** be sorted alphabetically.
+- Modules **should not** have `__all__` indices.
+- Package base classes **must** be named `Base`.
+```
+# YES
+class Base:
+    pass
+
+# No
+class BaseFoo:
+    pass
+```
+- Classes **should** implement `__repr__` methods.
+
+### Models
+- Models **should not** have docstrings.
