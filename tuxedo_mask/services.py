@@ -2,6 +2,10 @@
 
 import base64
 
+import bcrypt
+
+from tuxedo_mask import configuration
+
 
 def decode_credentials(encoded):
 
@@ -21,7 +25,7 @@ def decode_credentials(encoded):
     tuple
         Decoded username and password. Two-element tuple. The first
         element is the decoded username. The second element is the
-        decoded, unencrypted password.
+        decoded, unhashed password.
 
     References
     ----------
@@ -34,4 +38,32 @@ def decode_credentials(encoded):
     credentials = base64.b64decode(encoded).decode('utf-8')
     username, password = credentials.split(':')
     return username, password
+
+
+def hash_password(password, iterations=0):
+
+    """
+    Hash the password.
+
+    The underlying hashing algorithm is bcrypt.
+
+    Parameters
+    ----------
+    password : bytes
+        Decoded and unhashed password.
+    iterations : int
+        Defaults to the configured value. See the README.md
+        documentation for more details.
+
+    Returns
+    -------
+    str
+        Hashed password.
+    """
+
+    if not iterations:
+        iterations = configuration['components']['hashing']['iterations']
+    salt = bcrypt.gensalt(rounds=iterations)
+    hashed_password = bcrypt.hashpw(password=password, salt=salt)
+    return hashed_password
 
