@@ -8,13 +8,13 @@ if __name__ == '__main__':
 
     description = ('A lightweight, minimalist Identity and Access Management '
                    'microservice.')
-
     url = 'https://github.com/dnguyen0304/{package_name}.git'.format(
         package_name=package_name.replace('_', '-'))
+    dependency_links = [
+        'git+https://github.com/dnguyen0304/python-common.git@logging#egg=common-1.0']
 
     with open('./README.md', 'r') as file:
         long_description = file.read()
-
     with open('./requirements.txt', 'r') as file:
         install_requires = file.read().splitlines()
 
@@ -28,6 +28,9 @@ if __name__ == '__main__':
                      license='MIT',
                      packages=[package_name,
                                package_name + '.models'],
+                     dependency_links=dependency_links,
                      install_requires=install_requires,
+                     test_suite='nose.collector',
+                     tests_require=['nose'],
                      include_package_data=True)
 
