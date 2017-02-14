@@ -54,7 +54,7 @@ def hash_password(password):
 
     Returns
     -------
-    str
+    bytes
         Hashed password.
     """
 
