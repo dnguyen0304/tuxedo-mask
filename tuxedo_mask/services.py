@@ -40,7 +40,7 @@ def decode_credentials(encoded):
     return username, password
 
 
-def hash_password(password, iterations=0):
+def hash_password(password):
 
     """
     Hash the password.
@@ -51,9 +51,6 @@ def hash_password(password, iterations=0):
     ----------
     password : bytes
         Decoded and unhashed password.
-    iterations : int
-        Defaults to the configured value. See the README.md
-        documentation for more details.
 
     Returns
     -------
@@ -61,8 +58,7 @@ def hash_password(password, iterations=0):
         Hashed password.
     """
 
-    if not iterations:
-        iterations = configuration['components']['hashing']['iterations']
+    iterations = configuration['components']['hashing']['iterations']
     salt = bcrypt.gensalt(rounds=iterations)
     hashed_password = bcrypt.hashpw(password=password, salt=salt)
     return hashed_password
