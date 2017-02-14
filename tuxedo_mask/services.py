@@ -17,7 +17,7 @@ def decode_credentials(encoded):
 
     Parameters
     ----------
-    encoded : str
+    encoded : bytes
         Encoded username and password.
 
     Returns
