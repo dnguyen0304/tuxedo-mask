@@ -23,9 +23,9 @@ def decode_credentials(encoded):
     Returns
     -------
     tuple
-        Decoded username and password. Two-element tuple. The first
-        element is the decoded username. The second element is the
-        decoded, unhashed password.
+        Decoded username and password. Two-element tuple of strings.
+        The first element is the decoded username. The second element
+        is the decoded, unhashed password.
 
     References
     ----------
