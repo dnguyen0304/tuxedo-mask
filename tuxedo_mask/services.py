@@ -42,7 +42,7 @@ def verify_credentials(encoded, scope):
         connection_string=configuration['databases']['postgresql']['connection_string'])
     db_context = db_context_factory.create()
 
-    username, password = decode_credentials(encoded=encoded)
+    username, password = _parse_authorization_header(encoded)
     query = db_context.query(models.ApplicationsUsers).filter_by(
         application_id=scope.application_id,
         username=username)
@@ -87,18 +87,18 @@ def hash_password(password):
     return hashed_password
 
 
-def decode_credentials(encoded):
+def _parse_authorization_header(header):
 
     """
-    Decode credentials.
+    Parse the authorization header and decode the credentials.
 
-    The credentials must be encoded according to the Basic Access
+    The header must be formatted according to the Basic Access
     Authentication scheme described in RFC 1945 [1] [2].
 
     Parameters
     ----------
-    encoded : bytes
-        Encoded username and password.
+    header : str
+        Authentication scheme, and encoded username and password.
 
     Returns
     -------
@@ -115,7 +115,8 @@ def decode_credentials(encoded):
        https://tools.ietf.org/html/rfc2617#section-2
     """
 
-    decoded = base64.b64decode(encoded).decode('utf-8')
+    encoded = header.split()[1]
+    decoded = base64.b64decode(encoded.encode('utf-8')).decode('utf-8')
     username, password = decoded.split(':')
     return username, password
 
