@@ -2,8 +2,10 @@ FROM python:3.6-slim
 
 MAINTAINER Duy Nguyen <dnguyen0304@gmail.com>
 
+ARG build_dependencies="build-essential git libffi-dev"
+
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends build-essential
+    apt-get install -y --no-install-recommends $build_dependencies
 
 RUN mkdir --parents /opt/tuxedo_mask/
 
@@ -16,4 +18,4 @@ RUN python -m venv .virtual-environment && \
     python setup.py install
 
 RUN rm -fr /var/lib/apt/lists/* && \
-    apt-get purge -y --auto-remove build-essential
+    apt-get purge -y --auto-remove $build_dependencies
