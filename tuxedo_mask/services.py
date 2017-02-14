@@ -35,8 +35,8 @@ def decode_credentials(encoded):
        https://tools.ietf.org/html/rfc2617#section-2
     """
 
-    credentials = base64.b64decode(encoded).decode('utf-8')
-    username, password = credentials.split(':')
+    decoded = base64.b64decode(encoded).decode('utf-8')
+    username, password = decoded.split(':')
     return username, password
 
 
