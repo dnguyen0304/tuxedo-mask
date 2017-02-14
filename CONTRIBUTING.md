@@ -82,6 +82,7 @@ CREATE TABLE foo (
 Python
 ------
 ### General
+- Documentation **must** adhere to the [NumPy / SciPy specifications](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt).
 - Packages **should** have `__all__` indices in their `__init__.py`.
 - `__all__` indices **should** be sorted alphabetically.
 - Modules **should not** have `__all__` indices.
