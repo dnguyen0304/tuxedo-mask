@@ -63,6 +63,30 @@ def verify_credentials(encoded, scope):
     return passes_verification
 
 
+def hash_password(password):
+
+    """
+    Hash the password.
+
+    The underlying hashing algorithm is bcrypt.
+
+    Parameters
+    ----------
+    password : bytes
+        Decoded and unhashed password.
+
+    Returns
+    -------
+    bytes
+        Hashed password.
+    """
+
+    iterations = configuration['components']['hashing']['iterations']
+    salt = bcrypt.gensalt(rounds=iterations)
+    hashed_password = bcrypt.hashpw(password=password, salt=salt)
+    return hashed_password
+
+
 def decode_credentials(encoded):
 
     """
@@ -94,28 +118,4 @@ def decode_credentials(encoded):
     decoded = base64.b64decode(encoded).decode('utf-8')
     username, password = decoded.split(':')
     return username, password
-
-
-def hash_password(password):
-
-    """
-    Hash the password.
-
-    The underlying hashing algorithm is bcrypt.
-
-    Parameters
-    ----------
-    password : bytes
-        Decoded and unhashed password.
-
-    Returns
-    -------
-    bytes
-        Hashed password.
-    """
-
-    iterations = configuration['components']['hashing']['iterations']
-    salt = bcrypt.gensalt(rounds=iterations)
-    hashed_password = bcrypt.hashpw(password=password, salt=salt)
-    return hashed_password
 
