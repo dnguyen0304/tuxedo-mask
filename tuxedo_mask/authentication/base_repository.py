@@ -29,4 +29,3 @@ class BaseRepository(metaclass=abc.ABCMeta):
     def search(self, predicate):
         pass
 
-
