@@ -7,10 +7,10 @@ from . import Base
 
 class Users(Base):
 
-    __tablename__ = 'applications_users'
+    __tablename__ = 'users'
 
-    users_id = Column('applications_users_id ', Integer, primary_key=True)
-    users_uuid = Column('applications_users_uuid ')
+    users_id = Column(Integer, primary_key=True)
+    users_uuid = Column()
     applications_id = Column(ForeignKey('applications.applications_id'))
     username = Column()
     password = Column()
