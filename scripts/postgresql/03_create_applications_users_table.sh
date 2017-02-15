@@ -9,7 +9,7 @@ psql --set ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "tuxedo_mask_$tu
 
     CREATE TABLE users (
         users_id        serial                      PRIMARY KEY,
-        users_uuid      uuid            NOT NULL    DEFAULT uuid_generate_v1mc()                  UNIQUE,
+        users_sid       varchar(32)     NOT NULL    UNIQUE,
         applications_id int             NOT NULL    REFERENCES applications (applications_id),
         username        varchar(32)     NOT NULL,
         password        varchar(255)    NOT NULL,

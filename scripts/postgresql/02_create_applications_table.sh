@@ -9,7 +9,7 @@ psql --set ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "tuxedo_mask_$tu
 
     CREATE TABLE applications (
         applications_id     serial                      PRIMARY KEY,
-        applications_uuid   uuid            NOT NULL    DEFAULT uuid_generate_v1mc()    UNIQUE,
+        applications_sid    varchar(32)     NOT NULL    UNIQUE,
         name                varchar(32)     NOT NULL    UNIQUE,
         created_at          timestamp       NOT NULL    DEFAULT CURRENT_TIMESTAMP,
         created_by          int             NOT NULL,
