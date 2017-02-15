@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer
 
 from . import Base
 
@@ -9,7 +9,7 @@ class ApplicationsUsers(Base):
 
     __tablename__ = 'applications_users'
 
-    applications_users_id = Column(primary_key=True)
+    applications_users_id = Column(Integer, primary_key=True)
     applications_users_uuid = Column()
     applications_id = Column(ForeignKey('applications.applications_id'))
     username = Column()
