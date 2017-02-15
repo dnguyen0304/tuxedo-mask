@@ -20,8 +20,6 @@ class Users(Base):
         self.password = password
 
     def __repr__(self):
-        repr_ = '{}(username={}, password={})'
-        return repr_.format(self.__class__.__name__,
-                            self.username,
-                            self.password)
+        repr_ = '{}(username="{}", password="*")'
+        return repr_.format(self.__class__.__name__, self.username)
 
