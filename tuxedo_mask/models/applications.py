@@ -14,7 +14,7 @@ class Applications(Base):
     applications_uuid = Column()
     name = Column()
 
-    users = relationship('ApplicationsUsers')
+    users = relationship('Users')
 
     def __init__(self, name):
         self.name = name

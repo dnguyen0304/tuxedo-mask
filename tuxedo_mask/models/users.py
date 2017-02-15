@@ -5,12 +5,12 @@ from sqlalchemy import Column, ForeignKey, Integer
 from . import Base
 
 
-class ApplicationsUsers(Base):
+class Users(Base):
 
     __tablename__ = 'applications_users'
 
-    applications_users_id = Column(Integer, primary_key=True)
-    applications_users_uuid = Column()
+    users_id = Column('applications_users_id ', Integer, primary_key=True)
+    users_uuid = Column('applications_users_uuid ')
     applications_id = Column(ForeignKey('applications.applications_id'))
     username = Column()
     password = Column()
