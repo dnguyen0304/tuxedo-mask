@@ -11,7 +11,7 @@ class Applications(Base):
     __tablename__ = 'applications'
 
     applications_id = Column(Integer, primary_key=True)
-    applications_uuid = Column()
+    applications_sid = Column()
     name = Column()
 
     users = relationship('Users')
