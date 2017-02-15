@@ -100,3 +100,13 @@ class BaseFoo:
 
 ### Models
 - Models **should not** have docstrings.
+- Models describing one-to-many relationships **should not** be named `<Parent><Child>`.
+```
+# YES
+class Child:
+    pass
+
+# No
+class ParentChild:
+    pass
+```
