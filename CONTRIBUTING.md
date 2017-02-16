@@ -97,6 +97,8 @@ class BaseFoo:
     pass
 ```
 - Classes **should** implement `__repr__` methods.
+- Methods intended for subclassing (i.e. stub methods) **could** be named `do_<method_name>`.
+- Functions or methods intended for facilitating testing **could** be named `help_<function_or_method_name>`.
 
 ### Models
 - Models **should not** have docstrings.
