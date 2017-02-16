@@ -45,6 +45,11 @@ class Tracer:
         self._start_time = None
         self._stop_time = None
 
+    @property
+    def message(self):
+        message = 'Traced the call from {current_frame_name} to {next_frame_name}.'
+        return message.format(**self.to_json())
+
     def to_json(self):
 
         """

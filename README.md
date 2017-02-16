@@ -75,6 +75,5 @@ with utilities.Tracer('my_next_function_or_method') as tracer:
     my_next_function_or_method()
 
 logger = logging.getLogger(__name__)
-logger.debug('Traced a call to <my_next_function_or_method>',
-             extra=tracer.to_json())
+logger.debug(tracer.message, extra=tracer.to_json())
 ```
