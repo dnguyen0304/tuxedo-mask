@@ -15,11 +15,14 @@ class Users(Base):
     username = Column()
     password = Column()
 
-    def __init__(self, username, password):
+    def __init__(self, applications_id, username, password):
+        self.applications_id = applications_id
         self.username = username
         self.password = password
 
     def __repr__(self):
-        repr_ = '{}(username="{}", password="*")'
-        return repr_.format(self.__class__.__name__, self.username)
+        repr_ = '{}(applications_id={}, username="{}", password="*")'
+        return repr_.format(self.__class__.__name__,
+                            self.applications_id,
+                            self.username)
 
