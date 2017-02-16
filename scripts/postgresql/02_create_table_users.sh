@@ -16,6 +16,8 @@ psql --set ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "tuxedo_mask_$tu
         created_at      timestamp with time zone    NOT NULL    DEFAULT CURRENT_TIMESTAMP,
         created_by      int                         NOT NULL,
         updated_at      timestamp with time zone,
-        updated_by      int
+        updated_by      int,
+
+        UNIQUE (applications_id, username)
     );
 EOF
