@@ -17,13 +17,13 @@ def test_unit_of_work_has_repository_attributes():
     class BarRepository(BaseRepository):
         pass
 
-    repositories_ = {'foo_repository': FooRepository,
-                     'bar_repository': BarRepository}
-    unit_of_work = repositories.UnitOfWork(repositories=repositories_,
+    my_repositories = {'foo_repository': FooRepository,
+                       'bar_repository': BarRepository}
+    unit_of_work = repositories.UnitOfWork(repositories=my_repositories,
                                            db_context=None,
                                            logger=None)
 
-    for name, class_ in repositories_.items():
+    for name, class_ in my_repositories.items():
         assert_true(hasattr(unit_of_work, '_' + name))
         assert_is_instance(getattr(unit_of_work, '_' + name), class_)
 
