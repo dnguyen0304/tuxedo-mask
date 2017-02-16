@@ -3,6 +3,10 @@
 import abc
 
 
+class EntityConflict(Exception):
+    pass
+
+
 class EntityNotFound(Exception):
     pass
 
