@@ -3,21 +3,29 @@
 import abc
 import base64
 
-from tuxedo_mask import repositories
 
-
-class BaseClient(repositories.UnitOfWork, metaclass=abc.ABCMeta):
+class BaseClient(metaclass=abc.ABCMeta):
 
     def __init__(self, db_context, repositories, logger):
+        self._db_context = db_context
         self._logger = logger
-        super().__init__(repositories=repositories,
-                         db_context=db_context,
-                         logger=logger)
+
+        for name, class_ in repositories.items():
+            repository = class_(db_context=self._db_context, logger=self._logger)
+            setattr(self, '_' + name, repository)
 
     @classmethod
     @abc.abstractmethod
     def from_configuration(cls):
         pass
+
+    @property
+    def applications(self):
+        return self._applications_repository
+
+    @property
+    def users(self):
+        return self._users_repository
 
     def verify_credentials(self, header, scope):
 
@@ -79,4 +87,7 @@ class BaseClient(repositories.UnitOfWork, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def _do_verify_credentials(self, username, password, scope):
         pass
+
+    def dispose(self):
+        self._db_context.dispose()
 
