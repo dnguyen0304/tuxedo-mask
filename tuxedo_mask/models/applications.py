@@ -14,6 +14,7 @@ class Applications(Base):
     applications_sid = Column()
     name = Column()
 
+    # Should this feature be removed?
     users = relationship('Users')
 
     def __init__(self, name):
