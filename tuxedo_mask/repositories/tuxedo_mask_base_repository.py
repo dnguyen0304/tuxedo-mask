@@ -16,7 +16,7 @@ class TuxedoMaskBaseRepository(BaseRepository):
     def add(self, entity, by):
         if sqlalchemy.inspect(entity).transient:
             self._set_sid(entity)
-        self._db_context.add(entity, by=by)
+        self._db_context.add(entity, by=by.applications_id)
         self._db_context.commit()
 
     def remove(self, entity):
