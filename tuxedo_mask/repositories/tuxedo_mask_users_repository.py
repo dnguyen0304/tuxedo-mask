@@ -2,6 +2,7 @@
 
 import bcrypt
 
+import sqlalchemy
 from sqlalchemy import orm
 
 import tuxedo_mask
@@ -31,7 +32,15 @@ class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
     def add(self, entity, by):
         hashed_password = self._hash_password(entity.password.encode('utf-8'))
         entity.password = hashed_password.decode('utf-8')
-        super().add(entity=entity, by=by)
+        try:
+            super().add(entity=entity, by=by)
+        except sqlalchemy.exc.IntegrityError:
+            message = ("""There is already an existing user with the """
+                       """username "{user_username}" for the application """
+                       """with the name "{application_name}".""")
+            raise repositories.EntityConflict(
+                message.format(user_username=entity.username,
+                               application_name=by.name))
 
     @staticmethod
     def _hash_password(password):
