@@ -21,8 +21,8 @@ class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
             user = query.one()
         except orm.exc.NoResultFound:
             message = ("""The username "{username}" does not match that of """
-                       """an existing user's within the scope of the """
-                       """application "{application_name}".""")
+                       """an existing user's for the application with the """
+                       """name "{application_name}".""")
             raise repositories.EntityNotFound(
                 message.format(username=username,
                                application_name=application.name))
