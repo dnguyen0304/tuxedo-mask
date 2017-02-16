@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import bcrypt
+
 from sqlalchemy import orm
 
+import tuxedo_mask
 from . import TuxedoMaskBaseRepository
 from tuxedo_mask import models, repositories
 
@@ -24,4 +27,35 @@ class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
                                application_name=application.name))
 
         return user
+
+    def add(self, entity, by):
+        hashed_password = self._hash_password(entity.password.encode('utf-8'))
+        entity.password = hashed_password.decode('utf-8')
+        super().add(entity=entity, by=by)
+
+    @staticmethod
+    def _hash_password(password):
+
+        """
+        Hash the password.
+
+        The underlying hashing algorithm is bcrypt.
+
+        Parameters
+        ----------
+        password : bytes
+            Decoded and unhashed password.
+
+        Returns
+        -------
+        bytes
+            Hashed password.
+        """
+
+        iterations = (tuxedo_mask.configuration['clients']
+                                               ['tuxedo_mask']
+                                               ['bcrypt_cost_factor'])
+        salt = bcrypt.gensalt(rounds=iterations)
+        hashed_password = bcrypt.hashpw(password=password, salt=salt)
+        return hashed_password
 
