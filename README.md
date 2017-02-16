@@ -62,3 +62,18 @@ Below is the list of acceptable values. Note they are case-sensitive.
 The file stubs are located in `tuxedo_mask/configuration`.
 - `components.hashing.iterations`: Number of iterations to run the salting algorithm.
 - `databases.postgresql.connection_string`: Formatted string containing the host and authentication information. See the [SQLAlchemy Engine Configuration documentation](http://docs.sqlalchemy.org/en/latest/core/engines.html) for more details.
+
+Examples
+--------
+### Trace a Call
+```
+import logging
+
+from tuxedo_mask import utilities
+
+with utilities.Tracer('my_next_function_or_method') as tracer:
+    my_next_function_or_method()
+
+logger = logging.getLogger(__name__)
+logger.debug(tracer.message, extra=tracer.to_json())
+```

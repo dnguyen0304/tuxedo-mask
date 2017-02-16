@@ -2,9 +2,7 @@
 
 from .base import Base
 from .applications import Applications
-from .applications_users import ApplicationsUsers
+from .users import Users
 
-__all__ = ['Applications',
-           'ApplicationsUsers',
-           'Base']
+__all__ = ['Applications', 'Base', 'Users']
 
