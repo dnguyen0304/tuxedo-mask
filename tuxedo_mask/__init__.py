@@ -8,5 +8,5 @@ from common.logging import loggers
 configuration = utilities.get_configuration(application_name=__name__)
 
 logging.setLoggerClass(loggers.UnstructuredDataLogger)
-logging.config.dictConfig(configuration['components']['logging'])
+logging.config.dictConfig(configuration['logging'])
 
