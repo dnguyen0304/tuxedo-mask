@@ -23,6 +23,18 @@ class BaseRepository(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def add(self, entity, by):
+
+        """
+        Add the entity to the repository.
+
+        Parameters
+        ----------
+        entity : models.Base subclass
+            Domain model to be added.
+        by : models.Base subclass
+            Domain model performing the operation.
+        """
+
         pass
 
     @abc.abstractmethod
