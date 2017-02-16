@@ -3,7 +3,7 @@
 import abc
 import base64
 
-from tuxedo_mask import repositories, utilities
+from tuxedo_mask import repositories
 
 
 class BaseClient(repositories.UnitOfWork, metaclass=abc.ABCMeta):
@@ -56,14 +56,7 @@ class BaseClient(repositories.UnitOfWork, metaclass=abc.ABCMeta):
         """
 
         credentials = self._parse_authorization_header(header)
-
-        with utilities.Tracer('_do_verify_credentials') as tracer:
-            passes_verification = self._do_verify_credentials(*credentials,
-                                                              scope=scope)
-
-        self._logger.info(tracer.message, extra=tracer.to_json())
-
-        return passes_verification
+        return self._do_verify_credentials(*credentials, scope=scope)
 
     @staticmethod
     def _parse_authorization_header(header):
