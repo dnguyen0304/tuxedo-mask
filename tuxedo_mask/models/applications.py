@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from sqlalchemy import Column
+from sqlalchemy import Column, Integer
 from sqlalchemy.orm import relationship
 
 from . import Base
@@ -10,11 +10,12 @@ class Applications(Base):
 
     __tablename__ = 'applications'
 
-    applications_id = Column(primary_key=True)
-    applications_uuid = Column()
+    applications_id = Column(Integer, primary_key=True)
+    applications_sid = Column()
     name = Column()
 
-    users = relationship('ApplicationsUsers')
+    # Should this feature be removed?
+    users = relationship('Users')
 
     def __init__(self, name):
         self.name = name
