@@ -88,6 +88,11 @@ class BaseClient(metaclass=abc.ABCMeta):
     def _do_verify_credentials(self, username, password, scope):
         pass
 
+    @abc.abstractmethod
+    def commit(self):
+        pass
+
+    @abc.abstractmethod
     def dispose(self):
-        self._db_context.dispose()
+        pass
 

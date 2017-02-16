@@ -36,3 +36,9 @@ class TuxedoMaskClient(BaseClient):
 
         return passes_verification
 
+    def commit(self):
+        self._db_context.commit()
+
+    def dispose(self):
+        self._db_context.dispose()
+

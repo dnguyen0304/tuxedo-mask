@@ -23,8 +23,15 @@ class TestBaseClient:
             @classmethod
             def from_configuration(cls):
                 pass
+
             @staticmethod
             def _do_verify_credentials(self, username, password, scope):
+                pass
+
+            def commit(self):
+                pass
+
+            def dispose(self):
                 pass
 
         my_repositories = {'foo_mock_repository': FooMockRepository,
