@@ -22,7 +22,7 @@ class BaseRepository(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def add(self, entity, by):
+    def add(self, entity, by=None):
 
         """
         Add the entity to the repository.
@@ -31,8 +31,8 @@ class BaseRepository(metaclass=abc.ABCMeta):
         ----------
         entity : models.Base subclass
             Domain model to be added.
-        by : models.Base subclass
-            Domain model performing the operation.
+        by : models.Base subclass, optional.
+            Domain model performing the operation. Defaults to None.
         """
 
         pass
