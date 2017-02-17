@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import sys
+import traceback
 
 import bcrypt
+import sqlalchemy
 from common import database
 
 from . import BaseClient
@@ -35,4 +38,16 @@ class TuxedoMaskClient(BaseClient):
             hashed_password=user.password.encode('utf-8'))
 
         return passes_verification
+
+    def commit(self):
+        try:
+            self._db_context.commit()
+        except sqlalchemy.exc.IntegrityError as e:
+            self._db_context.rollback()
+            self._logger.exception(''.join(
+                traceback.format_exception_only(*sys.exc_info()[:2])))
+            raise repositories.EntityConflict(str(e))
+
+    def dispose(self):
+        self._db_context.dispose()
 
