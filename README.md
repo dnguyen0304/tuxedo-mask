@@ -65,6 +65,18 @@ The file stubs are located in `tuxedo_mask/configuration`.
 
 Examples
 --------
+*Adding an Authentication Service*
+repositories first and just really add()
+- Add a reference to the package `__all__` index in `repositories/__init__.py`.
+```
+# Define a client. This is the unit of work.
+$ touch tuxedo_mask/clients/foo_client.py
+```
+- Subclass `clients.BaseClient`, and implement the abstract methods.
+
+        # This is not a truly complete implementation of the Repository
+        # pattern. The Unit of Work should also be abstract to ensure
+        # a consistent interface.
 ### Trace a Call
 ```
 import logging
