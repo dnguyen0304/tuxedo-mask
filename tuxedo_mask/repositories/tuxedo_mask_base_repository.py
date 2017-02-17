@@ -13,7 +13,7 @@ class TuxedoMaskBaseRepository(BaseRepository):
     def get(self, entity_id):
         raise NotImplementedError
 
-    def add(self, entity, by):
+    def add(self, entity, by=None):
         if sqlalchemy.inspect(entity).transient:
             self._set_sid(entity)
         self._db_context.add(entity, by=by.applications_id)
