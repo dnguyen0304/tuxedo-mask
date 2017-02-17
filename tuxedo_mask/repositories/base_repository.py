@@ -33,12 +33,6 @@ class BaseRepository(metaclass=abc.ABCMeta):
             Domain model to be added.
         by : models.Base subclass
             Domain model performing the operation.
-
-        Raises
-        -------
-        sqlalchemy.exc.IntegrityError
-            If there is already an existing entity determined by
-            constraints.
         """
 
         pass

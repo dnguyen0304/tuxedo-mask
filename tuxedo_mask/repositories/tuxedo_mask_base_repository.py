@@ -17,11 +17,6 @@ class TuxedoMaskBaseRepository(BaseRepository):
         if sqlalchemy.inspect(entity).transient:
             self._set_sid(entity)
         self._db_context.add(entity, by=by.applications_id)
-        try:
-            self._db_context.commit()
-        except sqlalchemy.exc.IntegrityError:
-            self._db_context.rollback()
-            raise
 
     def remove(self, entity):
         raise NotImplementedError
