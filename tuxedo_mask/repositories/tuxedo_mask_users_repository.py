@@ -28,7 +28,7 @@ class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
 
         return user
 
-    def add(self, entity, by):
+    def add(self, entity, by=None):
         hashed_password = self._hash_password(entity.password.encode('utf-8'))
         entity.password = hashed_password.decode('utf-8')
         super().add(entity=entity, by=by)
