@@ -38,11 +38,14 @@ class BaseTestCase(metaclass=abc.ABCMeta):
 
     def setup(self):
         self.data = dict(zip(self.fields, self.values))
+        self.marshall()
+        self.unmarshalled_result = self._View().load(data=self.data)
+
+    def marshall(self):
         arguments = self._match_call_signature(callable_=self._Model,
                                                arguments=self.data)
         entity = self._Model(**arguments)
         self.marshalled_result = self._View().dump(obj=entity)
-        self.unmarshalled_result = self._View().load(data=self.data)
 
     @staticmethod
     def _match_call_signature(callable_, arguments):
@@ -67,7 +70,7 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         e = marshmallow.exceptions.ValidationError
 
         try:
-            self.setup()
+            self.marshall()
         except e:
             # The recommended way to assert that a test case does not
             # raise a specific error or exception is to use

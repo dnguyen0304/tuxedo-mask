@@ -25,5 +25,7 @@ class TestBaseView(BaseTestCase):
         return [datetime.datetime.now(tz=datetime.timezone.utc), '-1'] * 2
 
     def set_up_serialization_fails_silently(self):
-        self.values[self.fields.index('created_at')] = 'foo'
+        data = dict(zip(self.fields, self.values))
+        data['created_at'] = 'foo'
+        self.data = data
 
