@@ -1,43 +1,70 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+import abc
+import inspect
 import sys
 
 import marshmallow
 import nose
 from nose.tools import assert_equal, assert_false
 
-from tuxedo_mask import models, views
 
-
-class BaseTestCase:
+class BaseTestCase(metaclass=abc.ABCMeta):
 
     def __init__(self):
-        self.fields = ['created_at', 'created_by', 'updated_at', 'updated_by']
-        self.values = [datetime.datetime.now(tz=datetime.timezone.utc),
-                       '-1',
-                       datetime.datetime.now(tz=datetime.timezone.utc),
-                       '-1']
-
         self.data = dict()
-        self.entity = None
         self.marshalled_result = None
         self.unmarshalled_result = None
 
+    @property
+    @abc.abstractmethod
+    def _Model(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def _View(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def fields(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def values(self):
+        pass
+
     def setup(self):
         self.data = dict(zip(self.fields, self.values))
-        self.entity = models.Base(**self.data)
-        self.marshalled_result = views.BaseView().dump(obj=self.entity)
-        self.unmarshalled_result = views.BaseView().load(data=self.data)
+        arguments = self._match_call_signature(callable_=self._Model,
+                                               arguments=self.data)
+        entity = self._Model(**arguments)
+        self.marshalled_result = self._View().dump(obj=entity)
+        self.unmarshalled_result = self._View().load(data=self.data)
+
+    @staticmethod
+    def _match_call_signature(callable_, arguments):
+        parameters = inspect.signature(callable_).parameters
+        if 'kwargs' not in parameters:
+            arguments = {parameter_name: arguments[parameter_name]
+                         for parameter_name
+                         in parameters}
+        return arguments
 
     def test_serialization_has_no_errors(self):
         assert_false(self.marshalled_result.errors)
 
+    @abc.abstractmethod
+    def set_up_serialization_fails_silently(self):
+        pass
+
     def test_serialization_fails_silently(self):
+        self.set_up_serialization_fails_silently()
+
         test_case_name = sys._getframe(0).f_code.co_name
         e = marshmallow.exceptions.ValidationError
-
-        self.values[self.fields.index('created_at')] = 'foo'
 
         try:
             self.setup()
