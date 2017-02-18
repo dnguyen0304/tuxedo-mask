@@ -8,6 +8,8 @@ from tuxedo_mask import models
 
 class BaseView(marshmallow.Schema):
 
+    _model = models.Base
+
     class Meta:
         dateformat = 'iso'
         ordered = True
@@ -19,5 +21,5 @@ class BaseView(marshmallow.Schema):
 
     @marshmallow.post_load
     def _deserialize(self, data):
-        return models.Base(**data)
+        return self._model(**data)
 
