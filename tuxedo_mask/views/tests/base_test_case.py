@@ -100,22 +100,22 @@ class BaseTestCase(metaclass=abc.ABCMeta):
             raise AssertionError(message.format(test_case_name=test_case_name,
                                                 e_name=e.__name__))
 
-    @staticmethod
-    def test_serialization_maintains_sort_order():
-        raise nose.SkipTest
-
-    @staticmethod
-    def test_serialization_uses_iso_datetime_format():
-        raise nose.SkipTest
-
     def test_deserialization_has_no_errors(self):
         assert_false(self.unmarshalled_result.errors)
 
     @staticmethod
-    def test_deserialization_enforces_read_only_fields():
+    def test_configured_datetime_format():
+        raise nose.SkipTest
+
+    @staticmethod
+    def test_configured_read_only_fields():
         raise nose.SkipTest
 
     @staticmethod
     def test_configured_required_fields():
+        raise nose.SkipTest
+
+    @staticmethod
+    def test_configured_sort_order():
         raise nose.SkipTest
 
