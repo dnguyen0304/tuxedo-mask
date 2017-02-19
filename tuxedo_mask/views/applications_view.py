@@ -7,15 +7,24 @@ from . import BaseView
 from tuxedo_mask import models
 
 
-class _ApplicationsView(marshmallow.Schema):
+error_messages = {
+    'name': {
+        'length': """The application name must be between {min} and {max} """
+                  """characters in length, inclusive. You specified """
+                  """"{input}"."""
+    }
+}
 
-    name_error_message = ("""The application name must be between {min} """
-                          """and {max} characters in length.""")
+
+class _ApplicationsView(marshmallow.Schema):
 
     applications_sid = fields.String(dump_only=True)
     name = fields.String(
         required=True,
-        validate=[validate.Length(min=1, max=32, error=name_error_message)])
+        validate=[
+            validate.Length(min=1,
+                            max=32,
+                            error=error_messages['name']['length'])])
 
 
 # If ApplicationsView subclassed BaseView directly, the metadata fields
