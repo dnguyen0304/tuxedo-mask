@@ -6,7 +6,7 @@ import sys
 
 import marshmallow
 import nose
-from nose.tools import assert_equal, assert_false
+from nose.tools import assert_false
 
 
 class BaseTestCase(metaclass=abc.ABCMeta):
@@ -39,13 +39,33 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     def setup(self):
         self.data = dict(zip(self.fields, self.values))
         self.marshall()
-        self.unmarshalled_result = self._View().load(data=self.data)
+        self._help_unmarshall()
 
     def marshall(self):
         arguments = self._match_call_signature(callable_=self._Model,
                                                arguments=self.data)
         entity = self._Model(**arguments)
         self.marshalled_result = self._View().dump(obj=entity)
+
+    def unmarshall_with(self, update):
+
+        """
+        Unmarshall (i.e. "load") the data into an object.
+
+        Parameters
+        ----------
+        update : dict
+            New values with which to update the already initialized
+            data.
+        """
+
+        data_ = dict(zip(self.fields, self.values))
+        data_.update(update)
+        self.data = data_
+        self._help_unmarshall()
+
+    def _help_unmarshall(self):
+        self.unmarshalled_result = self._View().load(data=self.data)
 
     @staticmethod
     def _match_call_signature(callable_, arguments):
