@@ -25,7 +25,5 @@ class TestBaseView(BaseTestCase):
         return [datetime.datetime.now(tz=datetime.timezone.utc), '-1'] * 2
 
     def set_up_serialization_fails_silently(self):
-        data = dict(zip(self.fields, self.values))
-        data['created_at'] = 'foo'
-        self.data = data
+        self.unmarshall_with(update={'created_at': 'foo'})
 
