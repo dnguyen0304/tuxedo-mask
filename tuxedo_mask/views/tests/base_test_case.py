@@ -119,3 +119,7 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     def test_configured_sort_order():
         raise nose.SkipTest
 
+    @staticmethod
+    def test_configured_write_only_fields():
+        raise nose.SkipTest
+
