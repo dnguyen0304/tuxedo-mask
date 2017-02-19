@@ -115,3 +115,7 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     def test_deserialization_enforces_read_only_fields():
         raise nose.SkipTest
 
+    @staticmethod
+    def test_configured_required_fields():
+        raise nose.SkipTest
+
