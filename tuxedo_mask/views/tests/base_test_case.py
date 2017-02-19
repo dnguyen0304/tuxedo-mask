@@ -38,10 +38,10 @@ class BaseTestCase(metaclass=abc.ABCMeta):
 
     def setup(self):
         self.data = dict(zip(self.fields, self.values))
-        self.marshall()
+        self._help_marshall()
         self._help_unmarshall()
 
-    def marshall(self):
+    def _help_marshall(self):
         arguments = self._match_call_signature(callable_=self._Model,
                                                arguments=self.data)
         entity = self._Model(**arguments)
@@ -90,7 +90,7 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         e = marshmallow.exceptions.ValidationError
 
         try:
-            self.marshall()
+            self._help_marshall()
         except e:
             # The recommended way to assert that a test case does not
             # raise a specific error or exception is to use
