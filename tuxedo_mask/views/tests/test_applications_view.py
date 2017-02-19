@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from nose.tools import assert_true
+from nose.tools import assert_in
 
 from . import BaseTestCase
 from tuxedo_mask import models, views
@@ -28,11 +28,6 @@ class TestApplicationsView(BaseTestCase):
         pass
 
     def test_name_maximum_length(self):
-        data = dict(zip(self.fields, self.values))
-        data['name'] = 'x' * 50
-        self.data = data
-
-        self.unmarshall()
-
-        assert_true(self.unmarshalled_result.errors)
+        self.unmarshall_with(update={'name': 'x' * 50})
+        assert_in('name', self.unmarshalled_result.errors)
 
