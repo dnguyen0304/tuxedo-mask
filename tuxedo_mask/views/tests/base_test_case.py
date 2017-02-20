@@ -5,7 +5,7 @@ import inspect
 
 import marshmallow
 import nose
-from nose.tools import assert_false, assert_in, assert_true
+from nose.tools import assert_equal, assert_false, assert_in, assert_true
 
 
 class BaseTestCase(metaclass=abc.ABCMeta):
@@ -91,9 +91,8 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     def test_deserialization_has_no_errors(self):
         assert_false(self.unmarshalled_result.errors)
 
-    @staticmethod
-    def test_configured_datetime_format():
-        raise nose.SkipTest
+    def test_configured_iso_datetime_format(self):
+        assert_equal(self._View.Meta.dateformat, 'iso')
 
     def test_configured_raising_validation_errors(self):
         assert_true(self._View.Meta.strict)
