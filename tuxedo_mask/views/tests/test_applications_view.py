@@ -28,10 +28,10 @@ class TestApplicationsView(BaseTestCase):
         self.unmarshall_with(update={'name': ''})
 
     def test_deserialization_name_minimum_length(self):
-        self.unmarshall_with(update={'name': ''})
-        assert_in('name', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'name': ''}, partial=True)
+        assert_in('name', errors)
 
     def test_deserialization_name_maximum_length(self):
-        self.unmarshall_with(update={'name': 'x' * 50})
-        assert_in('name', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'name': 'x' * 50}, partial=True)
+        assert_in('name', errors)
 
