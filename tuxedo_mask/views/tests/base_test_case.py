@@ -47,6 +47,15 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         # Unmarshall.
         self.unmarshalled_result = self._View().load(data=self.data)
 
+    @staticmethod
+    def _match_call_signature(callable_, arguments):
+        parameters = inspect.signature(callable_).parameters
+        if 'kwargs' not in parameters:
+            arguments = {parameter_name: arguments[parameter_name]
+                         for parameter_name
+                         in parameters}
+        return arguments
+
     def help_validate(self, field, value, keyword):
 
         """
@@ -75,15 +84,6 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         except marshmallow.exceptions.ValidationError as e:
             assert_in(field, e.messages)
             assert_in(keyword, e.messages[field][0])
-
-    @staticmethod
-    def _match_call_signature(callable_, arguments):
-        parameters = inspect.signature(callable_).parameters
-        if 'kwargs' not in parameters:
-            arguments = {parameter_name: arguments[parameter_name]
-                         for parameter_name
-                         in parameters}
-        return arguments
 
     def test_serialization_has_no_errors(self):
         assert_false(self.marshalled_result.errors)
