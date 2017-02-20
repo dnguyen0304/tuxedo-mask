@@ -61,26 +61,32 @@ class TestUsersView(BaseTestCase):
         pass
 
     def test_username_minimum_length(self):
-        self.unmarshall_with(update={'username': str()})
-        assert_in('username', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'username': str()},
+                                       partial=True)
+        assert_in('username', errors)
 
     def test_username_maximum_length(self):
-        self.unmarshall_with(update={'username': 'x' * 50})
-        assert_in('username', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'username': 'x' * 50},
+                                       partial=True)
+        assert_in('username', errors)
 
     def test_password_minimum_length(self):
-        self.unmarshall_with(update={'password': 'Foo4567'})
-        assert_in('password', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'password': 'Foo4567'},
+                                       partial=True)
+        assert_in('password', errors)
 
     def test_password_contains_lowercase_characters(self):
-        self.unmarshall_with(update={'password': 'FOO45678'})
-        assert_in('password', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'password': 'FOO45678'},
+                                       partial=True)
+        assert_in('password', errors)
 
     def test_password_contains_uppercase_characters(self):
-        self.unmarshall_with(update={'password': 'foo45678'})
-        assert_in('password', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'password': 'foo45678'},
+                                       partial=True)
+        assert_in('password', errors)
 
     def test_password_contains_numeric_characters(self):
-        self.unmarshall_with(update={'password': 'Fooooooo'})
-        assert_in('password', self.unmarshalled_result.errors)
+        errors = self._View().validate(data={'password': 'Fooooooo'},
+                                       partial=True)
+        assert_in('password', errors)
 
