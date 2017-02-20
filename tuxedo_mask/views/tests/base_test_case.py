@@ -5,7 +5,7 @@ import inspect
 
 import marshmallow
 import nose
-from nose.tools import assert_equal, assert_false, assert_in, assert_true
+from nose.tools import assert_false, assert_in
 
 
 class BaseTestCase(metaclass=abc.ABCMeta):
@@ -91,12 +91,6 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     def test_deserialization_has_no_errors(self):
         assert_false(self.unmarshalled_result.errors)
 
-    def test_configured_iso_datetime_format(self):
-        assert_equal(self._View.Meta.dateformat, 'iso')
-
-    def test_configured_raising_validation_errors(self):
-        assert_true(self._View.Meta.strict)
-
     @staticmethod
     def test_configured_read_only_fields():
         raise nose.SkipTest
@@ -104,9 +98,6 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     @staticmethod
     def test_configured_required_fields():
         raise nose.SkipTest
-
-    def test_configured_maintaining_sort_order(self):
-        assert_true(self._View.Meta.ordered)
 
     @staticmethod
     def test_configured_write_only_fields():
