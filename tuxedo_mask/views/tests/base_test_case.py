@@ -75,23 +75,6 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         entity = self._Model(**arguments)
         self.marshalled_result = self._View().dump(obj=entity)
 
-    def unmarshall_with(self, update):
-
-        """
-        Unmarshall (i.e. "load") the data into an object.
-
-        Parameters
-        ----------
-        update : dict
-            New values with which to update the already initialized
-            data.
-        """
-
-        data_ = dict(zip(self.fields, self.values))
-        data_.update(update)
-        self.data = data_
-        self._help_unmarshall()
-
     def _help_unmarshall(self):
         self.unmarshalled_result = self._View().load(data=self.data)
 
