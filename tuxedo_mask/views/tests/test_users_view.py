@@ -57,36 +57,33 @@ class TestUsersView(BaseTestCase):
     def values(self):
         return ['foo', 'foo', 'Foo45678']
 
-    def set_up_serialization_fails_silently(self):
-        pass
-
     def test_username_minimum_length(self):
-        errors = self._View().validate(data={'username': str()},
-                                       partial=True)
-        assert_in('username', errors)
+        self.help_validate(field='username',
+                           value=str(),
+                           keyword='length')
 
     def test_username_maximum_length(self):
-        errors = self._View().validate(data={'username': 'x' * 50},
-                                       partial=True)
-        assert_in('username', errors)
+        self.help_validate(field='username',
+                           value='x' * 50,
+                           keyword='length')
 
     def test_password_minimum_length(self):
-        errors = self._View().validate(data={'password': 'Foo4567'},
-                                       partial=True)
-        assert_in('password', errors)
+        self.help_validate(field='password',
+                           value='Foo4567',
+                           keyword='length')
 
     def test_password_contains_lowercase_characters(self):
-        errors = self._View().validate(data={'password': 'FOO45678'},
-                                       partial=True)
-        assert_in('password', errors)
+        self.help_validate(field='password',
+                           value='FOO45678',
+                           keyword='lowercase')
 
     def test_password_contains_uppercase_characters(self):
-        errors = self._View().validate(data={'password': 'foo45678'},
-                                       partial=True)
-        assert_in('password', errors)
+        self.help_validate(field='password',
+                           value='foo45678',
+                           keyword='uppercase')
 
     def test_password_contains_numeric_characters(self):
-        errors = self._View().validate(data={'password': 'Fooooooo'},
-                                       partial=True)
-        assert_in('password', errors)
+        self.help_validate(field='password',
+                           value='Fooooooo',
+                           keyword='numeric')
 

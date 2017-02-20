@@ -13,6 +13,7 @@ class BaseView(marshmallow.Schema):
     class Meta:
         dateformat = 'iso'
         ordered = True
+        strict = True
 
     created_at = fields.DateTime(dump_only=True)
     created_by = fields.String(dump_only=True)
