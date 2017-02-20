@@ -2,11 +2,10 @@
 
 import abc
 import inspect
-import sys
 
 import marshmallow
 import nose
-from nose.tools import assert_false
+from nose.tools import assert_false, assert_in, assert_true
 
 
 class BaseTestCase(metaclass=abc.ABCMeta):
@@ -40,6 +39,35 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         self.data = dict(zip(self.fields, self.values))
         self._help_marshall()
         self._help_unmarshall()
+
+    def help_validate(self, field, value, keyword):
+
+        """
+        Run a test to assert validation was configured correctly.
+
+        The validation configuration must include specifying a helpful
+        error message.
+
+        Parameters
+        ----------
+        field : str
+            Field name to validate.
+        value : Any
+            Field value to validate.
+        keyword : str
+            Keyword to search within the error message for.
+
+        Raises
+        ------
+        AssertionError
+            If validation was not configured correctly.
+        """
+
+        try:
+            self._View().validate(data={field: value}, partial=True)
+        except marshmallow.exceptions.ValidationError as e:
+            assert_in(field, e.messages)
+            assert_in(keyword, e.messages[field][0])
 
     def _help_marshall(self):
         arguments = self._match_call_signature(callable_=self._Model,
@@ -79,33 +107,15 @@ class BaseTestCase(metaclass=abc.ABCMeta):
     def test_serialization_has_no_errors(self):
         assert_false(self.marshalled_result.errors)
 
-    @abc.abstractmethod
-    def set_up_serialization_fails_silently(self):
-        pass
-
-    def test_serialization_fails_silently(self):
-        self.set_up_serialization_fails_silently()
-
-        test_case_name = sys._getframe(0).f_code.co_name
-        e = marshmallow.exceptions.ValidationError
-
-        try:
-            self._help_marshall()
-        except e:
-            # The recommended way to assert that a test case does not
-            # raise a specific error or exception is to use
-            # unittest.TestCase.fail(). The technique here reflects its
-            # implementation.
-            message = '{test_case_name}() should not raise {e_name}.'
-            raise AssertionError(message.format(test_case_name=test_case_name,
-                                                e_name=e.__name__))
-
     def test_deserialization_has_no_errors(self):
         assert_false(self.unmarshalled_result.errors)
 
     @staticmethod
     def test_configured_datetime_format():
         raise nose.SkipTest
+
+    def test_configured_raising_validation_errors(self):
+        assert_true(self._View.Meta.strict)
 
     @staticmethod
     def test_configured_read_only_fields():

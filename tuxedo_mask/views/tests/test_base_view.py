@@ -24,6 +24,3 @@ class TestBaseView(BaseTestCase):
     def values(self):
         return [datetime.datetime.now(tz=datetime.timezone.utc), '-1'] * 2
 
-    def set_up_serialization_fails_silently(self):
-        self.unmarshall_with(update={'created_at': 'foo'})
-
