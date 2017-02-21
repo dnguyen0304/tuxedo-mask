@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import base64
 import re
 
 import marshmallow
@@ -55,7 +56,13 @@ class TestUsersView(BaseTestCase):
 
     @property
     def values(self):
-        return ['foo', 'Foo45678']
+        encoded_password = (
+            base64.b64encode('Foo45678'.encode('utf-8')).decode('utf-8'))
+        return ['foo', encoded_password]
+
+    def help_validate(self, field, value, keyword):
+        value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
+        super().help_validate(field=field, value=value, keyword=keyword)
 
     def test_username_minimum_length(self):
         self.help_validate(field='username',
