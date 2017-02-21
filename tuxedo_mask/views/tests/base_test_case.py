@@ -2,6 +2,7 @@
 
 import abc
 import inspect
+import sys
 
 import marshmallow
 import nose
@@ -84,6 +85,16 @@ class BaseTestCase(metaclass=abc.ABCMeta):
         except marshmallow.exceptions.ValidationError as e:
             assert_in(field, e.messages)
             assert_in(keyword, e.messages[field][0])
+        else:
+            test_name = sys._getframe(2).f_code.co_name
+
+            # The recommended way is to assert a test does not raise a
+            # specific error or exception is to use
+            # unittest.TestCase.fail(). The technique here reflects its
+            # implementation.
+            message = ("""{test_name}() should raise """
+                       """marshmallow.exceptions.ValidationError.""")
+            raise AssertionError(message.format(test_name=test_name))
 
     def test_serialization_has_no_errors(self):
         assert_false(self.marshalled_result.errors)
