@@ -51,11 +51,11 @@ class TestUsersView(BaseTestCase):
 
     @property
     def fields(self):
-        return ['users_sid', 'username', 'password']
+        return ['username', 'password']
 
     @property
     def values(self):
-        return ['foo', 'foo', 'Foo45678']
+        return ['foo', 'Foo45678']
 
     def test_username_minimum_length(self):
         self.help_validate(field='username',
