@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import base64
 import string
 
 import marshmallow
@@ -100,6 +101,14 @@ class _UsersView(marshmallow.Schema):
             ContainsAtLeast(choices=string.digits,
                             error=error_messages['password']['numeric_characters'])],
         load_only=True)
+
+    @marshmallow.pre_load
+    def decode_password(self, data):
+        try:
+            data['password'] = base64.b64decode(data['password'])
+        except KeyError:
+            pass
+        return data
 
 
 class UsersView(BaseView, _UsersView):
