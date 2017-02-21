@@ -16,11 +16,11 @@ class TestApplicationsView(BaseTestCase):
 
     @property
     def fields(self):
-        return ['applications_sid', 'name']
+        return ['name']
 
     @property
     def values(self):
-        return ['foo', 'foo']
+        return ['foo']
 
     def test_deserialization_name_minimum_length(self):
         self.help_validate(field='name', value='', keyword='length')
