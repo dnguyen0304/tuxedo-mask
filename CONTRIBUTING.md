@@ -78,6 +78,7 @@ CREATE TABLE foo (
 - Column constraints **should** trend towards being more restrictive.
 - Data type constraints **should** trend towards being more relaxed.
 - Datetime (data types that store both date and time) columns **must** include the time zone.
+- Database schema changes **should** be propagated to the corresponding application views.
 
 Python
 ------
