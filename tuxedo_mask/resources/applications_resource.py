@@ -17,7 +17,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         # Flask-RESTful constructs a new Resource for every request.
         # Should these be global objects?
         self.logger = logging.getLogger('tuxedo_mask')
-        self.client = services.TuxedoMaskClient.from_configuration()
+        self.service = services.TuxedoMaskClient.from_configuration()
 
     # Although initially counter-intuitive, Tuxedo Mask actually
     # delegates to itself for authentication. How this works is the
@@ -44,13 +44,13 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             self.logger.info(e.messages)
             return body, http_status_code, headers
 
-        tuxedo_mask_application = self.client.applications.get_by_name(
+        tuxedo_mask_application = self.service.applications.get_by_name(
             name='tuxedo_mask')
         entity.applications_id = tuxedo_mask_application.applications_id
-        self.client.users.add(entity=entity, by=tuxedo_mask_application)
+        self.service.users.add(entity=entity, by=tuxedo_mask_application)
 
         try:
-            self.client.commit()
+            self.service.commit()
         except repositories.EntityConflict:
             http_status_code = http.HTTPStatus.CONFLICT
             message = ("""There is already an existing application with the """
@@ -60,7 +60,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             http_status_code = http.HTTPStatus.CREATED
             # TODO (duyn): Log resource creation.
 
-        self.client.dispose()
+        self.service.dispose()
 
         return body, http_status_code, headers
 
