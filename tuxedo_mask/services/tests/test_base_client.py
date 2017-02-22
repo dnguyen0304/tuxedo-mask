@@ -4,7 +4,7 @@ import base64
 
 from nose.tools import assert_is_instance, assert_true, assert_tuple_equal
 
-from tuxedo_mask import clients
+from tuxedo_mask import services
 
 
 class TestBaseClient:
@@ -19,7 +19,7 @@ class TestBaseClient:
             def __init__(self, db_context, logger):
                 pass
 
-        class MockClient(clients.BaseClient):
+        class MockClient(services.BaseClient):
             @classmethod
             def from_configuration(cls):
                 pass
@@ -49,6 +49,6 @@ class TestBaseClient:
         credentials = ('foo', 'bar')
         encoded = base64.b64encode(':'.join(credentials).encode('utf-8'))
         header = 'Basic ' + encoded.decode('utf-8')
-        decoded = clients.BaseClient._parse_authorization_header(header)
+        decoded = services.BaseClient._parse_authorization_header(header)
         assert_tuple_equal(decoded, credentials)
 

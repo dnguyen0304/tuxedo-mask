@@ -17,7 +17,7 @@ class TuxedoMaskClient(BaseClient):
     @classmethod
     def from_configuration(cls):
         logger = logging.getLogger(
-            name=configuration['clients']['tuxedo_mask']['logger_name'])
+            name=configuration['services']['tuxedo_mask']['logger_name'])
 
         db_context_factory = database.DBContextFactory(
             connection_string=configuration['postgresql']['connection_string'])
