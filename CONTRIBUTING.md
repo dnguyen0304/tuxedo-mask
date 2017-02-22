@@ -87,6 +87,26 @@ Python
 - Packages **should** have `__all__` indices in their `__init__.py`.
 - `__all__` indices **should** be sorted alphabetically.
 - Modules **should not** have `__all__` indices.
+- Modules **must** be named with an object type suffix. An exception is with Models. Model modules **must not** be named with an object type suffix.
+```
+# YES
+/foos
+    - eggs_foo.py
+    - ham_foo.py
+
+/models
+    - eggs.py
+    - ham.py
+
+# No
+/foos
+    - eggs.py
+    - ham.py
+
+/models
+    - eggs_model.py
+    - ham_model.py
+```
 - Package base classes **must** be named with a "Base" prefix.
 ```
 # YES
