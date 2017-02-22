@@ -6,11 +6,11 @@ import common
 from common.logging import loggers
 
 __all__ = ['api',
-           'clients',
            'configuration',
            'models',
            'repositories',
            'resources',
+           'services',
            'utilities',
            'views']
 
