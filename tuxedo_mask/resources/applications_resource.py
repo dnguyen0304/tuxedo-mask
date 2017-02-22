@@ -26,7 +26,8 @@ class ApplicationsCollectionResource(flask_restful.Resource):
     # are then Users of this reserved Application.
     #
     # In summary, while POST requests are made to the Applications
-    # Resource, Applications are added to the repository as Users.
+    # Resource, Applications must also be added to the repository as
+    # Users.
     def post(self):
         # TODO (duyn): Log application registration / sign-up.
 
@@ -34,11 +35,14 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         http_status_code = None
         headers = dict()
 
-        view = views.UsersView()
-        view.fields['username'].load_from = 'name'
+        applications_view = views.ApplicationsView()
+        users_view = views.UsersView()
+        users_view.fields['username'].load_from = 'name'
+        data = flask.request.get_json()
 
         try:
-            entity = view.load(data=flask.request.get_json()).data
+            application = applications_view.load(data=data).data
+            user = users_view.load(data=data).data
         except marshmallow.exceptions.ValidationError as e:
             http_status_code = http.HTTPStatus.BAD_REQUEST
             self.logger.info(e.messages)
@@ -46,8 +50,9 @@ class ApplicationsCollectionResource(flask_restful.Resource):
 
         tuxedo_mask_application = self.service.applications.get_by_name(
             name='tuxedo_mask')
-        entity.applications_id = tuxedo_mask_application.applications_id
-        self.service.users.add(entity=entity, by=tuxedo_mask_application)
+        user.applications_id = tuxedo_mask_application.applications_id
+        self.service.applications.add(entity=application, by=tuxedo_mask_application)
+        self.service.users.add(entity=user, by=tuxedo_mask_application)
 
         try:
             self.service.commit()
@@ -55,7 +60,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             http_status_code = http.HTTPStatus.CONFLICT
             message = ("""There is already an existing application with the """
                        """name "{name}".""")
-            self.logger.info(message.format(name=entity.username))
+            self.logger.info(message.format(name=application.name))
         else:
             http_status_code = http.HTTPStatus.CREATED
             # TODO (duyn): Log resource creation.
