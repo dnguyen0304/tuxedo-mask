@@ -8,11 +8,11 @@ import bcrypt
 import sqlalchemy
 from common import database
 
-from . import BaseClient
+from . import BaseService
 from tuxedo_mask import configuration, repositories
 
 
-class TuxedoMaskClient(BaseClient):
+class TuxedoMaskService(BaseService):
 
     @classmethod
     def from_configuration(cls):
@@ -27,9 +27,9 @@ class TuxedoMaskClient(BaseClient):
             'applications_repository': repositories.TuxedoMaskApplicationsRepository,
             'users_repository': repositories.TuxedoMaskUsersRepository}
 
-        return TuxedoMaskClient(db_context=db_context,
-                                repositories=my_repositories,
-                                logger=logger)
+        return TuxedoMaskService(db_context=db_context,
+                                 repositories=my_repositories,
+                                 logger=logger)
 
     def _do_verify_credentials(self, username, password, scope):
         user = self.users.get_by_username(username, application=scope)
