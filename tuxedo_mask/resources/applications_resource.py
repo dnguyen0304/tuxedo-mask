@@ -8,7 +8,7 @@ import flask
 import flask_restful
 import marshmallow
 
-from tuxedo_mask import clients, repositories, views
+from tuxedo_mask import services, repositories, views
 
 
 class ApplicationsCollectionResource(flask_restful.Resource):
@@ -17,7 +17,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         # Flask-RESTful constructs a new Resource for every request.
         # Should these be global objects?
         self.logger = logging.getLogger('tuxedo_mask')
-        self.client = clients.TuxedoMaskClient.from_configuration()
+        self.client = services.TuxedoMaskClient.from_configuration()
 
     # Although initially counter-intuitive, Tuxedo Mask actually
     # delegates to itself for authentication. How this works is the
