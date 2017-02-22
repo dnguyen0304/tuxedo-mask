@@ -4,7 +4,7 @@ import abc
 import base64
 
 
-class BaseClient(metaclass=abc.ABCMeta):
+class BaseService(metaclass=abc.ABCMeta):
 
     def __init__(self, db_context, repositories, logger):
         self._db_context = db_context
