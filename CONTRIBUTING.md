@@ -87,14 +87,14 @@ Python
 - Packages **should** have `__all__` indices in their `__init__.py`.
 - `__all__` indices **should** be sorted alphabetically.
 - Modules **should not** have `__all__` indices.
-- Package base classes **must** be named `Base`.
+- Package base classes **must** be named with a "Base" prefix.
 ```
 # YES
-class Base:
+class BaseFoo:
     pass
 
 # No
-class BaseFoo:
+class Foo:
     pass
 ```
 - Classes **should** implement `__repr__()` methods.
