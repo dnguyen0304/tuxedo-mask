@@ -35,7 +35,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         headers = dict()
 
         view = views.UsersView()
-        view._declared_fields['username'].load_from = 'name'
+        view.fields['username'].load_from = 'name'
 
         try:
             entity = view.load(data=flask.request.get_json()).data
