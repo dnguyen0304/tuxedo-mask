@@ -5,7 +5,14 @@ import logging.config
 import common
 from common.logging import loggers
 
-__all__ = ['clients', 'configuration', 'models', 'repositories', 'utilities']
+__all__ = ['api',
+           'clients',
+           'configuration',
+           'models',
+           'repositories',
+           'resources',
+           'utilities',
+           'views']
 
 configuration = common.utilities.get_configuration(application_name=__name__)
 
