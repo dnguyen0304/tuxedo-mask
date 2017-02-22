@@ -8,7 +8,7 @@ import flask
 import flask_restful
 import marshmallow
 
-from tuxedo_mask import services, repositories, views
+from tuxedo_mask import repositories, services, views
 
 
 class ApplicationsCollectionResource(flask_restful.Resource):
