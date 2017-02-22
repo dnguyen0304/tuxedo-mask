@@ -18,6 +18,7 @@ api.add_resource(resources.UsersCollectionResource, '/v1/applications/<string:ap
 
 @app.before_request
 def do_before_request():
+
     flask.g.logger = logging.getLogger(name='tuxedo_mask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
 
@@ -33,6 +34,7 @@ def do_before_request():
 
 @app.after_request
 def do_after_request(response):
+
     flask.g.service.dispose()
 
     return response
