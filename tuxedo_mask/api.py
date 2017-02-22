@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import collections
 import logging
 
 import flask
@@ -19,6 +20,15 @@ api.add_resource(resources.UsersCollectionResource, '/v1/applications/<string:ap
 def do_before_request():
     flask.g.logger = logging.getLogger(name='tuxedo_mask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
+
+    flask.g.body = collections.OrderedDict()
+    flask.g.http_status_code = None
+    flask.g.headers = dict()
+
+    def get_response():
+        return flask.g.body, flask.g.http_status_code, flask.g.headers
+
+    flask.g.get_response = get_response
 
 
 @app.after_request
