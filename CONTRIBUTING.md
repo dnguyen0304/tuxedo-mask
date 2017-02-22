@@ -90,6 +90,19 @@ This service implements a five-tier architecture.
 - At the domain tier, *Models* are how Repositories represent database entities and are the system's fundamental objects.
 - At the presentation tier, *Views* "marshall" or serialize Models so Resources can respond to clients.
 
+### Package Hierarchy
+```
+          Clients
+API -----------------------
+         Resources
+          |     |
+    Services Views
+     |        |
+Repositories  |
+           |  |
+          Models
+```
+
 ### General
 - Documentation **must** adhere to the [NumPy / SciPy specifications](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt).
 - Packages **should** have `__all__` indices in their `__init__.py`.
