@@ -49,5 +49,5 @@ class TuxedoMaskClient(BaseClient):
             raise repositories.EntityConflict(str(e))
 
     def dispose(self):
-        self._db_context.dispose()
+        self._db_context.close()
 
