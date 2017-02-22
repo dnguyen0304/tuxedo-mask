@@ -77,3 +77,12 @@ with utilities.Tracer('my_next_function_or_method') as tracer:
 logger = logging.getLogger(__name__)
 logger.debug(tracer.message, extra=tracer.to_json())
 ```
+
+Architecture
+------------
+This service implements a five-tier architecture.
+- At the API tier, *Resources* provide an interface for inbound client requests. Resources are purely for orchestrating work between the underlying Services, Repositories, Models, and Views. In this sense, they are comparable to Controllers in the classical MVC definition.
+- At the services tier, *Services* house the primary business logic functions.
+- At the data tier, *Repositories* enable Services to perform primitive CRUD operations. A Service may bind to 0 or more Repositories.
+- At the domain tier, *Models* are how Repositories represent database entities and are the system's fundamental objects.
+- At the presentation tier, *Views* "marshall" or serialize Models so Resources can respond to clients.
