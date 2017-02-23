@@ -20,7 +20,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
     # Resource, Applications must also be added to the repository as
     # Users.
     def post(self):
-        # TODO (duyn): Log application registration / sign-up.
+        # TODO (duyn): Log application sign-up.
 
         users_view = views.UsersView()
         users_view.fields['username'].load_from = 'name'

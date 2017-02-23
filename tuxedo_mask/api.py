@@ -18,6 +18,7 @@ app = flask.Flask(__name__)
 api = flask_restful.Api(app=app)
 
 api.add_resource(resources.ApplicationsCollectionResource, '/v1/applications/')
+api.add_resource(resources.LoginAttemptsResource, '/v1/applications/<string:applications_sid>/login_attempts/')
 api.add_resource(resources.UsersCollectionResource, '/v1/applications/<string:applications_sid>/users/')
 
 
