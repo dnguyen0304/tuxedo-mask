@@ -94,3 +94,9 @@ class TestUsersView(BaseTestCase):
                            value='Fooooooo',
                            keyword='numeric')
 
+    def test_decode_password_does_not_mutate_inplace(self):
+        password = base64.b64encode('foo'.encode('utf-8'))
+        data = {'password': password}
+        self._View().decode_password(data=data)
+        assert_equal(data['password'], password)
+
