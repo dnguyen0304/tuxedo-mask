@@ -44,8 +44,6 @@ class TuxedoMaskService(BaseService):
             self._db_context.commit()
         except sqlalchemy.exc.IntegrityError as e:
             self._db_context.rollback()
-            self._logger.exception(''.join(
-                traceback.format_exception_only(*sys.exc_info()[:2])))
             raise repositories.EntityConflict(str(e))
 
     def dispose(self):
