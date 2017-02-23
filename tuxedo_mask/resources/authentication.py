@@ -18,6 +18,7 @@ def get_password(username):
     user = service.users.get_by_username(username=username,
                                          application=application)
 
+    flask.g.user = user
     flask.g.password_salt = user.password[:29]
 
     return user.password
