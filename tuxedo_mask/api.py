@@ -60,7 +60,7 @@ def handle_validation_error(e):
 
     response = flask.jsonify(e.messages)
     response.status_code = http.HTTPStatus.BAD_REQUEST
-    log_e(message='The user encountered a validation error.', e=e)
+    log_e(message='There was an error when trying to validate the data.', e=e)
 
     return response
 
