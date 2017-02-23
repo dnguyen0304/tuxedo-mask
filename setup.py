@@ -11,7 +11,7 @@ if __name__ == '__main__':
     url = 'https://github.com/dnguyen0304/{package_name}.git'.format(
         package_name=package_name.replace('_', '-'))
     dependency_links = [
-        'git+https://github.com/dnguyen0304/python-common.git@0.2#egg=common-0.2']
+        'git+https://github.com/dnguyen0304/python-common.git@0.3#egg=common-0.3']
 
     with open('./README.md', 'r') as file:
         long_description = file.read()
@@ -27,9 +27,11 @@ if __name__ == '__main__':
                      author_email='dnguyen0304@gmail.com',
                      license='MIT',
                      packages=[package_name,
-                               package_name + '.clients',
                                package_name + '.models',
-                               package_name + '.repositories'],
+                               package_name + '.repositories',
+                               package_name + '.resources',
+                               package_name + '.services',
+                               package_name + '.views'],
                      dependency_links=dependency_links,
                      install_requires=install_requires,
                      test_suite='nose.collector',

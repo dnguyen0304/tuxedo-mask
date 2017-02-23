@@ -52,7 +52,7 @@ class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
             Hashed password.
         """
 
-        iterations = (tuxedo_mask.configuration['clients']
+        iterations = (tuxedo_mask.configuration['services']
                                                ['tuxedo_mask']
                                                ['bcrypt_cost_factor'])
         salt = bcrypt.gensalt(rounds=iterations)

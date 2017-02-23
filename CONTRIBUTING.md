@@ -78,27 +78,71 @@ CREATE TABLE foo (
 - Column constraints **should** trend towards being more restrictive.
 - Data type constraints **should** trend towards being more relaxed.
 - Datetime (data types that store both date and time) columns **must** include the time zone.
+- Database schema changes **should** be propagated to the corresponding application views.
 
 Python
 ------
+### Architecture
+This service implements a five-tier architecture.
+- At the API tier, *Resources* provide an interface for inbound client requests. Resources are purely for orchestrating work between the underlying Services, Repositories, Models, and Views. In this sense, they are comparable to Controllers in the classical MVC definition.
+- At the services tier, *Services* house the primary business logic functions.
+- At the data tier, *Repositories* enable Services to perform primitive CRUD operations. A Service may bind to 0 or more Repositories.
+- At the domain tier, *Models* are how Repositories represent database entities and are the system's fundamental objects.
+- At the presentation tier, *Views* "marshall" or serialize Models so Resources can respond to clients.
+
+### Package Hierarchy
+```
+          Clients
+API -----------------------
+         Resources
+          |     |
+    Services Views
+     |        |
+Repositories  |
+           |  |
+          Models
+```
+
 ### General
 - Documentation **must** adhere to the [NumPy / SciPy specifications](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt).
 - Packages **should** have `__all__` indices in their `__init__.py`.
 - `__all__` indices **should** be sorted alphabetically.
 - Modules **should not** have `__all__` indices.
-- Package base classes **must** be named `Base`.
+- Modules **must** be named with an object type suffix. An exception is with Models. Model modules **must not** be named with an object type suffix.
 ```
 # YES
-class Base:
+/foos
+    - eggs_foo.py
+    - ham_foo.py
+
+/models
+    - eggs.py
+    - ham.py
+
+# No
+/foos
+    - eggs.py
+    - ham.py
+
+/models
+    - eggs_model.py
+    - ham_model.py
+```
+- Package base classes **must** be named with a "Base" prefix.
+```
+# YES
+class BaseFoo:
     pass
 
 # No
-class BaseFoo:
+class Foo:
     pass
 ```
+- Classes **must** follow the same naming conventions as modules.
 - Classes **should** implement `__repr__()` methods.
 - Methods intended for subclassing (i.e. stub methods) **could** be named `do_<method_name>()`.
 - Functions or methods intended for facilitating testing **could** be named `help_<function_or_method_name>()`.
+- Logging **should** be done in the Controllers.
 
 ### Models
 - Models **should not** have docstrings.
