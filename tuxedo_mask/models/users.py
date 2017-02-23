@@ -15,8 +15,8 @@ class Users(Base):
     username = Column()
     password = Column()
 
-    def __init__(self, applications_id, username, password):
-        self.applications_id = applications_id
+    # Should application or applications_id be added as a required parameter?
+    def __init__(self, username, password):
         self.username = username
         self.password = password
 

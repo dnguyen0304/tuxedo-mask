@@ -8,6 +8,19 @@ from tuxedo_mask import models, repositories
 
 class TuxedoMaskApplicationsRepository(TuxedoMaskBaseRepository):
 
+    def get_by_sid(self, applications_sid):
+        query = self._db_context.query(models.Applications) \
+                                .filter_by(applications_sid=applications_sid)
+        try:
+            application = query.one()
+        except orm.exc.NoResultFound:
+            message = ("""The SID "{applications_sid}" does not match that """
+                       """of an existing application's.""")
+            raise repositories.EntityNotFound(
+                message.format(applications_sid=applications_sid))
+
+        return application
+
     def get_by_name(self, name):
         query = self._db_context.query(models.Applications) \
                                 .filter_by(name=name)
