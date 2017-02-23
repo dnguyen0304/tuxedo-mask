@@ -4,6 +4,8 @@
 import collections
 import http
 import logging
+import sys
+import traceback
 import uuid
 
 import flask
@@ -22,6 +24,8 @@ api.add_resource(resources.UsersCollectionResource, '/v1/applications/<string:ap
 @app.before_request
 def do_before_request():
 
+    # Flask-RESTful constructs a new Resource on every request. Should
+    # these be global objects?
     flask.g.logger = logging.getLogger(name='tuxedo_mask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
 
@@ -40,6 +44,17 @@ def do_before_request():
 def do_after_request(response):
 
     flask.g.service.dispose()
+
+    return response
+
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+
+    message = ''.join(traceback.format_exception_only(*sys.exc_info()[:2]))
+    response = flask.jsonify(dict())
+    response.status_code = http.HTTPStatus.INTERNAL_SERVER_ERROR
+    log_e(message=message, e=e, is_internal_e=True)
 
     return response
 
@@ -71,7 +86,7 @@ def handle_validation_error(e):
     return response
 
 
-def log_e(message, e):
+def log_e(message, e, is_internal_e=False):
 
     extra = dict([
         ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
@@ -94,7 +109,10 @@ def log_e(message, e):
     except AttributeError:
         pass
 
-    flask.g.logger.error(message, extra=extra)
+    if is_internal_e:
+        flask.g.logger.exception(message, extra=extra)
+    else:
+        flask.g.logger.error(message, extra=extra)
 
 
 if __name__ == '__main__':
