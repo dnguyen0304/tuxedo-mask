@@ -8,10 +8,6 @@ import flask_restful
 from tuxedo_mask import views
 
 
-class ApplicationsResource(flask_restful.Resource):
-    pass
-
-
 class ApplicationsCollectionResource(flask_restful.Resource):
 
     # Although initially counter-intuitive, Tuxedo Mask actually
@@ -41,10 +37,6 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         flask.g.service.commit()
 
         flask.g.http_status_code = http.HTTPStatus.CREATED
-        flask.g.headers['Location'] = flask.url_for(
-            ApplicationsResource.endpoint,
-            applications_sid=application.applications_sid,
-            _external=True)
         # TODO (duyn): Log resource creation.
 
         return flask.g.get_response()
