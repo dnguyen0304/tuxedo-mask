@@ -19,7 +19,7 @@ if __name__ == '__main__':
         install_requires = file.read().splitlines()
 
     setuptools.setup(name=package_name,
-                     version='1.0',
+                     version='1.0.0',
                      description=description,
                      long_description=long_description,
                      url=url,
