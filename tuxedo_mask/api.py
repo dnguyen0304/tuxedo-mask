@@ -47,7 +47,13 @@ def do_after_request(response):
 @app.errorhandler(repositories.EntityConflict)
 def handle_entity_conflict(e):
 
-    message = 'There is already an existing user with this username.'
+    message_mapping = {
+        'applicationscollectionresource': (
+            """There is already an existing application with this name."""),
+        'userscollectionresource': (
+            """There is already an existing user with this username.""")}
+
+    message = message_mapping[flask.request.endpoint]
     response = flask.jsonify(message)
     response.status_code = http.HTTPStatus.CONFLICT
     log_e(message=message, e=e)
