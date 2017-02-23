@@ -24,7 +24,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
     # Resource, Applications must also be added to the repository as
     # Users.
     def post(self):
-        flask.g.event.update({'event_name': 'ApplicationSignUp',
+        flask.g.event.update({'event_name': 'ApplicationSignUpEvent',
                               'event_state': 'PENDING'})
         flask.g.logger.info('', extra=flask.g.event)
 

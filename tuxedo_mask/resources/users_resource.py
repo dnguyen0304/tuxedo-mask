@@ -13,7 +13,7 @@ class UsersCollectionResource(flask_restful.Resource):
 
     @authentication.login_required
     def post(self, applications_sid):
-        flask.g.event.update({'event_name': 'UserAdd',
+        flask.g.event.update({'event_name': 'UserAddEvent',
                               'event_state': 'PENDING'})
         flask.g.logger.info('', extra=flask.g.event)
 

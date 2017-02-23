@@ -11,7 +11,7 @@ class LoginAttemptsResource(flask_restful.Resource):
 
     @authentication.login_required
     def post(self, applications_sid):
-        flask.g.event.update({'event_name': 'LoginAttempt',
+        flask.g.event.update({'event_name': 'LoginAttemptEvent',
                               'event_state': 'PENDING'})
         flask.g.logger.info('', extra=flask.g.event)
 
