@@ -31,7 +31,9 @@ def do_before_request():
     flask.g.logger = logging.getLogger(name='tuxedo_mask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
 
-    flask.g.requests_id = str(uuid.uuid4())
+    flask.g.event = {'event_name': '',
+                     'event_state': '',
+                     'requests_id': str(uuid.uuid4())}
     flask.g.body = collections.OrderedDict()
     flask.g.http_status_code = None
     flask.g.headers = dict()
@@ -93,7 +95,7 @@ def log_e(message, e, is_internal_e=False):
     extra = dict([
         ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
         ('e_message', str(e)),
-        ('requests_id', flask.g.requests_id),
+        ('requests_id', flask.g.event['requests_id']),
         ('users_sid', ''),
         ('user_username', ''),
         ('request_client_ip_address', flask.request.environ.get('REMOTE_ADDR')),

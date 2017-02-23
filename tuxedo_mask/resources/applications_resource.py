@@ -24,7 +24,9 @@ class ApplicationsCollectionResource(flask_restful.Resource):
     # Resource, Applications must also be added to the repository as
     # Users.
     def post(self):
-        # TODO (duyn): Log application sign-up.
+        flask.g.event.update({'event_name': 'ApplicationSignUp',
+                              'event_state': 'PENDING'})
+        flask.g.logger.info('', extra=flask.g.event)
 
         users_view = views.UsersView()
         users_view.fields['username'].load_from = 'name'
@@ -34,6 +36,13 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         application = (
             views.ApplicationsView().load(data=flask.request.get_json()).data)
         user = users_view.load(data=flask.request.get_json()).data
+
+        flask.g.event.update({
+            'event_state': 'STARTING',
+            'application_name': user.username,
+            'application_encoded_password': flask.request.get_json()['password']})
+        flask.g.logger.info('', extra=flask.g.event)
+
         user.applications_id = tuxedo_mask_application.applications_id
         flask.g.service.applications.add(entity=application,
                                          by=tuxedo_mask_application)
@@ -45,7 +54,9 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             ApplicationsResource.endpoint,
             applications_sid=application.applications_sid,
             _external=True)
-        # TODO (duyn): Log resource creation.
+
+        flask.g.event.update({'event_state': 'COMPLETE'})
+        flask.g.logger.info('', extra=flask.g.event)
 
         return flask.g.get_response()
 
