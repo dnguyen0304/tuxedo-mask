@@ -10,7 +10,7 @@ import flask
 import flask_restful
 import marshmallow
 
-from tuxedo_mask import resources, services
+from tuxedo_mask import repositories, services, resources
 
 app = flask.Flask(__name__)
 api = flask_restful.Api(app=app)
@@ -40,6 +40,17 @@ def do_before_request():
 def do_after_request(response):
 
     flask.g.service.dispose()
+
+    return response
+
+
+@app.errorhandler(repositories.EntityConflict)
+def handle_entity_conflict(e):
+
+    message = 'There is already an existing user with this username.'
+    response = flask.jsonify(message)
+    response.status_code = http.HTTPStatus.CONFLICT
+    log_e(message=message, e=e)
 
     return response
 
