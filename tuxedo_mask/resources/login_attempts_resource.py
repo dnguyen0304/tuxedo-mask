@@ -11,10 +11,17 @@ class LoginAttemptsResource(flask_restful.Resource):
 
     @authentication.login_required
     def post(self, applications_sid):
-        # TODO (duyn): Log user login attempt.
+        flask.g.event.update({'event_name': 'LoginAttempt',
+                              'event_state': 'PENDING'})
+        flask.g.logger.info('', extra=flask.g.event)
 
         login_attempt = (
             views.LoginAttemptsView().load(data=flask.request.get_json()).data)
+
+        flask.g.event.update({
+            'event_state': 'STARTING',
+            'encoded_credentials': flask.request.get_json()['credentials']})
+        flask.g.logger.info('', extra=flask.g.event)
 
         application = flask.g.service.applications.get_by_sid(applications_sid)
         is_authenticated = flask.g.service.verify_credentials(
@@ -22,6 +29,9 @@ class LoginAttemptsResource(flask_restful.Resource):
             scope=application)
 
         flask.g.body = {'is_authenticated': is_authenticated}
+
+        flask.g.event.update({'event_state': 'COMPLETE'})
+        flask.g.logger.info('', extra=flask.g.event)
 
         return flask.g.get_response()
 
