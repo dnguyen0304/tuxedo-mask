@@ -71,8 +71,8 @@ def log_e(message, e):
         ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
         ('e_message', str(e)),
         ('requests_id', flask.g.requests_id),
-        ('users_sid', flask.g.user.users_sid),
-        ('user_username', flask.g.user.username),
+        ('users_sid', ''),
+        ('user_username', ''),
         ('request_client_ip_address', flask.request.environ.get('REMOTE_ADDR')),
         ('request_client_port_number', flask.request.environ.get('REMOTE_PORT')),
         ('request_method', flask.request.environ.get('REQUEST_METHOD')),
@@ -81,6 +81,12 @@ def log_e(message, e):
         ('request_body', flask.request.get_data().decode('utf-8')),
         ('request_host', flask.request.host),
         ('request_endpoint_name', flask.request.endpoint)])
+
+    try:
+        extra['users_sid'] = flask.g.user.users_sid
+        extra['user_username'] = flask.g.user.username
+    except AttributeError:
+        pass
 
     flask.g.logger.error(message, extra=extra)
 
