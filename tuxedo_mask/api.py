@@ -92,10 +92,10 @@ def handle_validation_error(e):
 
 def log_e(message, e, is_internal_e=False):
 
-    extra = dict([
+    extra = flask.g.event.copy()
+    extra.update(dict([
         ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
         ('e_message', str(e)),
-        ('requests_id', flask.g.event['requests_id']),
         ('users_sid', ''),
         ('user_username', ''),
         ('request_client_ip_address', flask.request.environ.get('REMOTE_ADDR')),
@@ -105,7 +105,8 @@ def log_e(message, e, is_internal_e=False):
         ('request_authorization', flask.request.environ.get('HTTP_AUTHORIZATION')),
         ('request_body', flask.request.get_data().decode('utf-8')),
         ('request_host', flask.request.host),
-        ('request_endpoint_name', flask.request.endpoint)])
+        ('request_endpoint_name', flask.request.endpoint)]))
+    extra.update({'event_state': 'COMPLETE'})
 
     try:
         extra['users_sid'] = flask.g.user.users_sid
