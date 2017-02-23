@@ -104,11 +104,12 @@ class _UsersView(marshmallow.Schema):
 
     @marshmallow.pre_load
     def decode_password(self, data):
+        data_ = data.copy()
         try:
-            data['password'] = base64.b64decode(data['password'])
+            data_['password'] = base64.b64decode(data_['password'])
         except KeyError:
             pass
-        return data
+        return data_
 
 
 class UsersView(BaseView, _UsersView):
