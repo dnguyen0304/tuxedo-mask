@@ -68,7 +68,7 @@ def handle_validation_error(e):
 def log_e(message, e):
 
     extra = dict([
-        ('e_type', '.'.join([e.__module__, e.__class__.__name__])),
+        ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
         ('e_message', str(e)),
         ('requests_id', flask.g.requests_id),
         ('users_sid', flask.g.user.users_sid),
