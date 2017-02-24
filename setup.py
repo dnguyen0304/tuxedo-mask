@@ -11,7 +11,7 @@ if __name__ == '__main__':
     url = 'https://github.com/dnguyen0304/{package_name}.git'.format(
         package_name=package_name.replace('_', '-'))
     dependency_links = [
-        'git+https://github.com/dnguyen0304/python-common.git@v0.3.1#egg=common-0.3.1']
+        'git+https://github.com/dnguyen0304/python-common.git@v0.4.0#egg=common-0.4.0']
 
     with open('./README.md', 'r') as file:
         long_description = file.read()
