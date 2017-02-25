@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import sys
-import traceback
 
 import bcrypt
 import sqlalchemy

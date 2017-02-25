@@ -15,6 +15,7 @@ import marshmallow
 from tuxedo_mask import repositories, services, resources
 
 app = flask.Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 api = flask_restful.Api(app=app)
 
 api.add_resource(resources.ApplicationsCollectionResource, '/v1/applications/')
