@@ -14,13 +14,13 @@ class UsersCollectionResource(flask_restful.Resource):
     @authentication.login_required
     def post(self, applications_sid):
         flask.g.event.update({'event_name': 'UserAddEvent',
-                              'event_state': 'PENDING'})
+                              'event_state': 'Pending'})
         flask.g.logger.info('', extra=flask.g.event)
 
         user = views.UsersView().load(data=flask.request.get_json()).data
 
         flask.g.event.update({
-            'event_state': 'STARTING',
+            'event_state': 'Starting',
             'application_sid': applications_sid,
             'user_username': user.username,
             'user_encoded_password': flask.request.get_json()['password']})
@@ -33,7 +33,7 @@ class UsersCollectionResource(flask_restful.Resource):
 
         flask.g.http_status_code = http.HTTPStatus.CREATED
 
-        flask.g.event.update({'event_state': 'COMPLETE'})
+        flask.g.event.update({'event_state': 'Complete'})
         flask.g.logger.info('', extra=flask.g.event)
 
         return flask.g.get_response()
