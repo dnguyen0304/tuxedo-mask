@@ -44,11 +44,21 @@ def do_before_request():
 
     flask.g.get_response = get_response
 
+    extra = {'log_topic': 'ConnectionPooling', 'log_type': 'Application'}
+    extra.update({'requests_id': flask.g.event['requests_id']})
+    extra.update(services.TuxedoMaskService.get_connection_pool_status())
+    flask.g.logger.info('', extra=extra)
+
 
 @app.after_request
 def do_after_request(response):
 
     flask.g.service.dispose()
+
+    extra = {'log_topic': 'ConnectionPooling', 'log_type': 'Application'}
+    extra.update({'requests_id': flask.g.event['requests_id']})
+    extra.update(services.TuxedoMaskService.get_connection_pool_status())
+    flask.g.logger.info('', extra=extra)
 
     return response
 

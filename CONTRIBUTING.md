@@ -156,3 +156,13 @@ class Child:
 class ParentChild:
     pass
 ```
+
+### Logging
+- Values **should** follow the same naming convention as classes.
+```
+# YES
+status: Starting
+
+# No
+status: STARTING
+```
