@@ -11,15 +11,14 @@ class LoginAttemptsResource(flask_restful.Resource):
 
     @authentication.login_required
     def post(self, applications_sid):
-        flask.g.event.update({'event_name': 'LoginAttemptEvent',
-                              'event_state': 'Pending'})
+        flask.g.event.update({'topic': 'LoginAttempt', 'state': 'Pending'})
         flask.g.logger.info('', extra=flask.g.event)
 
         login_attempt = (
             views.LoginAttemptsView().load(data=flask.request.get_json()).data)
 
         flask.g.event.update({
-            'event_state': 'Starting',
+            'state': 'Starting',
             'encoded_credentials': flask.request.get_json()['credentials']})
         flask.g.logger.info('', extra=flask.g.event)
 
@@ -30,7 +29,7 @@ class LoginAttemptsResource(flask_restful.Resource):
 
         flask.g.body = {'is_authenticated': is_authenticated}
 
-        flask.g.event.update({'event_state': 'Complete'})
+        flask.g.event.update({'state': 'Complete'})
         flask.g.logger.info('', extra=flask.g.event)
 
         return flask.g.get_response()
