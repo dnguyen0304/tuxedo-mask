@@ -24,7 +24,8 @@ class ApplicationsCollectionResource(flask_restful.Resource):
     # Resource, Applications must also be added to the repository as
     # Users.
     def post(self):
-        flask.g.event.update({'topic': 'ApplicationSignUp', 'state': 'Pending'})
+        flask.g.event.update({'event_name': 'ApplicationSignUpEvent',
+                              'event_state': 'Pending'})
         flask.g.logger.info('', extra=flask.g.event)
 
         users_view = views.UsersView()
@@ -37,7 +38,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         user = users_view.load(data=flask.request.get_json()).data
 
         flask.g.event.update({
-            'state': 'Starting',
+            'event_state': 'Starting',
             'application_name': user.username,
             'application_encoded_password': flask.request.get_json()['password']})
         flask.g.logger.info('', extra=flask.g.event)
@@ -54,7 +55,7 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             applications_sid=application.applications_sid,
             _external=True)
 
-        flask.g.event.update({'state': 'Complete'})
+        flask.g.event.update({'event_state': 'Complete'})
         flask.g.logger.info('', extra=flask.g.event)
 
         return flask.g.get_response()
