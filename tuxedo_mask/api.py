@@ -32,9 +32,7 @@ def do_before_request():
     flask.g.logger = logging.getLogger(name='tuxedo_mask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
 
-    flask.g.event = {'event_name': '',
-                     'event_state': '',
-                     'requests_id': str(uuid.uuid4())}
+    flask.g.message = {'topic': '', 'requests_uuid': str(uuid.uuid4())}
     flask.g.body = collections.OrderedDict()
     flask.g.http_status_code = None
     flask.g.headers = dict()
@@ -44,8 +42,8 @@ def do_before_request():
 
     flask.g.get_response = get_response
 
-    extra = {'log_topic': 'ConnectionPooling', 'log_type': 'Application'}
-    extra.update({'requests_id': flask.g.event['requests_id']})
+    extra = {'topic': 'ConnectionPooling'}
+    extra.update({'requests_uuid': flask.g.message['requests_uuid']})
     extra.update(services.TuxedoMaskService.get_connection_pool_status())
     flask.g.logger.info('', extra=extra)
 
@@ -55,8 +53,8 @@ def do_after_request(response):
 
     flask.g.service.dispose()
 
-    extra = {'log_topic': 'ConnectionPooling', 'log_type': 'Application'}
-    extra.update({'requests_id': flask.g.event['requests_id']})
+    extra = {'topic': 'ConnectionPooling'}
+    extra.update({'requests_uuid': flask.g.message['requests_uuid']})
     extra.update(services.TuxedoMaskService.get_connection_pool_status())
     flask.g.logger.info('', extra=extra)
 
@@ -103,10 +101,10 @@ def handle_validation_error(e):
 
 def log_e(message, e, is_internal_e=False):
 
-    extra = flask.g.event.copy()
+    extra = flask.g.message.copy()
     extra.update(dict([
-        ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
-        ('e_message', str(e)),
+        ('error_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
+        ('error_message', str(e)),
         ('users_sid', ''),
         ('user_username', ''),
         ('request_client_ip_address', flask.request.environ.get('REMOTE_ADDR')),
@@ -117,7 +115,7 @@ def log_e(message, e, is_internal_e=False):
         ('request_body', flask.request.get_data().decode('utf-8')),
         ('request_host', flask.request.host),
         ('request_endpoint_name', flask.request.endpoint)]))
-    extra.update({'event_state': 'COMPLETE'})
+    extra.update({'state': 'Complete'})
 
     try:
         extra['users_sid'] = flask.g.user.users_sid

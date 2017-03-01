@@ -158,11 +158,30 @@ class ParentChild:
 ```
 
 ### Logging
-- Values **should** follow the same naming convention as classes.
+- Values **must** follow the same naming convention as classes. An exception is with type suffixes. Values **must not** be named with a type suffix.
 ```
 # YES
-status: Starting
+topic: UserAdd
 
 # No
-status: STARTING
+topic: UserAddEvent
 ```
+- Messages **must** have a `version` attribute.
+- Messages **must** have a `messages_uuid` attribute.
+- Messages **must** have a `topic` attribute.
+- Message topics **should** start with a noun.
+```
+# YES
+topic: UserAdd
+
+# No
+topic: AddUser
+```
+- Messages **should** specify their type. Below is the list of example values.
+    - `system`
+    - `application`
+    - `error`
+- Events **must** have a `state` attribute. Below is the list of acceptable values.
+    - `Pending`
+    - `Starting`
+    - `Complete`
