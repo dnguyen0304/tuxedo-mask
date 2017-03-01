@@ -1,6 +1,6 @@
 # Release Notes
 
-## v1.2.1 (Pending)
+## v1.2.1 (2017-03-01)
 ##### Bug Fixes
 - Fixed Logstash Upstart configuration file for development using `bash` instead of `sh`
 - Fixed Logstash Upstart configuration file for testing referencing an undefined variable
