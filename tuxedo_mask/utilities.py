@@ -1,7 +1,38 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import sys
 import time
+
+
+class StackTraceFilter(logging.Filter):
+
+    def filter(self, record):
+
+        """
+        Filter log records with stack traces.
+
+        Multi-line messages must be processed differently than those
+        of standard application logs.
+
+        Parameters
+        ----------
+        record : logging.LogRecord
+            Log record.
+
+        Returns
+        -------
+        int
+            If the handler should include the log record, 1 is
+            returned. If the handler should exclude the log record, 0
+            is returned.
+        """
+
+        if record.exc_info:
+            is_included = 0
+        else:
+            is_included = 1
+        return is_included
 
 
 # This object relies on sys._getframe() to collect runtime data. While
