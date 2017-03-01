@@ -14,5 +14,5 @@ def test_global_logger_class():
 
 def test_package_logger_exists():
 
-    assert_in('tuxedo_mask', logging.Logger.manager.loggerDict)
+    assert_in('tuxedomask', logging.Logger.manager.loggerDict)
 
