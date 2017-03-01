@@ -24,8 +24,8 @@ class ApplicationsCollectionResource(flask_restful.Resource):
     # Resource, Applications must also be added to the repository as
     # Users.
     def post(self):
-        flask.g.event.update({'topic': 'ApplicationSignUp', 'state': 'Pending'})
-        flask.g.logger.info('', extra=flask.g.event)
+        flask.g.message.update({'topic': 'ApplicationSignUp', 'state': 'Pending'})
+        flask.g.logger.info('', extra=flask.g.message)
 
         users_view = views.UsersView()
         users_view.fields['username'].load_from = 'name'
@@ -36,11 +36,11 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             views.ApplicationsView().load(data=flask.request.get_json()).data)
         user = users_view.load(data=flask.request.get_json()).data
 
-        flask.g.event.update({
+        flask.g.message.update({
             'state': 'Starting',
             'application_name': user.username,
             'application_encoded_password': flask.request.get_json()['password']})
-        flask.g.logger.info('', extra=flask.g.event)
+        flask.g.logger.info('', extra=flask.g.message)
 
         user.applications_id = tuxedo_mask_application.applications_id
         flask.g.service.applications.add(entity=application,
@@ -54,8 +54,8 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             applications_sid=application.applications_sid,
             _external=True)
 
-        flask.g.event.update({'state': 'Complete'})
-        flask.g.logger.info('', extra=flask.g.event)
+        flask.g.message.update({'state': 'Complete'})
+        flask.g.logger.info('', extra=flask.g.message)
 
         return flask.g.get_response()
 

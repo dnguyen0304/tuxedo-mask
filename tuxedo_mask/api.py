@@ -32,9 +32,7 @@ def do_before_request():
     flask.g.logger = logging.getLogger(name='tuxedo_mask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
 
-    flask.g.event = {'topic': '',
-                     'state': '',
-                     'requests_uuid': str(uuid.uuid4())}
+    flask.g.message = {'topic': '', 'requests_uuid': str(uuid.uuid4())}
     flask.g.body = collections.OrderedDict()
     flask.g.http_status_code = None
     flask.g.headers = dict()
@@ -45,7 +43,7 @@ def do_before_request():
     flask.g.get_response = get_response
 
     extra = {'topic': 'ConnectionPooling'}
-    extra.update({'requests_uuid': flask.g.event['requests_uuid']})
+    extra.update({'requests_uuid': flask.g.message['requests_uuid']})
     extra.update(services.TuxedoMaskService.get_connection_pool_status())
     flask.g.logger.info('', extra=extra)
 
@@ -56,7 +54,7 @@ def do_after_request(response):
     flask.g.service.dispose()
 
     extra = {'topic': 'ConnectionPooling'}
-    extra.update({'requests_uuid': flask.g.event['requests_uuid']})
+    extra.update({'requests_uuid': flask.g.message['requests_uuid']})
     extra.update(services.TuxedoMaskService.get_connection_pool_status())
     flask.g.logger.info('', extra=extra)
 
@@ -103,7 +101,7 @@ def handle_validation_error(e):
 
 def log_e(message, e, is_internal_e=False):
 
-    extra = flask.g.event.copy()
+    extra = flask.g.message.copy()
     extra.update(dict([
         ('error_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
         ('error_message', str(e)),
