@@ -29,7 +29,7 @@ def do_before_request():
 
     # Flask-RESTful constructs a new Resource on every request. Should
     # these be global objects?
-    flask.g.logger = logging.getLogger(name='tuxedo_mask')
+    flask.g.logger = logging.getLogger(name='tuxedomask')
     flask.g.service = services.TuxedoMaskService.from_configuration()
 
     flask.g.message = {'topic': '', 'requests_uuid': str(uuid.uuid4())}

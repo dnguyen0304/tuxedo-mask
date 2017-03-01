@@ -5,6 +5,7 @@
 - Fixed Logstash Upstart configuration file for development using `bash` instead of `sh`
 - Fixed Logstash Upstart configuration file for testing referencing an undefined variable
 - Fixed Logstash input file path patterns using regular expressions instead of glob
+- Fixed referencing an incorrect logger name
 
 ## v.1.2.0 (2017-03-01)
 ##### Changes
