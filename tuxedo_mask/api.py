@@ -105,8 +105,8 @@ def log_e(message, e, is_internal_e=False):
 
     extra = flask.g.event.copy()
     extra.update(dict([
-        ('e_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
-        ('e_message', str(e)),
+        ('error_type', '.'.join([e.__class__.__module__, e.__class__.__name__])),
+        ('error_message', str(e)),
         ('users_sid', ''),
         ('user_username', ''),
         ('request_client_ip_address', flask.request.environ.get('REMOTE_ADDR')),
