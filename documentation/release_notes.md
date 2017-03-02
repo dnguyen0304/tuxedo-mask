@@ -5,7 +5,7 @@
 - Changed NGINX access log to use verbose formatting (ME-518)
 
 ##### Features
-- ME-516: Added NGINX status page and Logstash log forwarding
+- Added NGINX status page and Logstash log forwarding (ME-516)
 
 ## v1.2.1 (2017-03-01)
 ##### Bug Fixes
