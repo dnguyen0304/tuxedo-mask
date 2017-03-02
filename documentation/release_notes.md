@@ -2,6 +2,7 @@
 
 ## v1.3.0 (Pending)
 ##### Changes
+- Changed NGINX access log file path
 - Changed NGINX access log to use verbose formatting (ME-518)
 
 ##### Features
