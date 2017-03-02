@@ -1,7 +1,16 @@
 # Release Notes
 
+## v1.3.0 (2017-03-02)
+##### Changes
+- Changed NGINX access log file path
+- Changed NGINX access log to use verbose formatting (ME-518)
+
+##### Features
+- Added Elasticsearch component (ME-504)
+- Added NGINX status page and Logstash log forwarding (ME-516)
+
 ## v1.2.1 (2017-03-01)
-##### Bug Fixes
+##### Fixes
 - Fixed Logstash Upstart configuration file for development using `bash` instead of `sh`
 - Fixed Logstash Upstart configuration file for testing referencing an undefined variable
 - Fixed Logstash input file path patterns using regular expressions instead of glob
@@ -19,7 +28,7 @@
 - Added release notes
 - Added tests for logging configuration
 
-##### Bug Fixes
+##### Fixes
 - Fixed Logstash Upstart configuration file for testing using `bash` instead of `sh`
 - Fixed Logstash input file path patterns not matching all files
 - Fixed default uWSGI log file path configuration value
