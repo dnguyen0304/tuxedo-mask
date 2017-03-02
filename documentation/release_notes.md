@@ -1,11 +1,12 @@
 # Release Notes
 
-## v1.3.0 (Pending)
+## v1.3.0 (2017-03-02)
 ##### Changes
 - Changed NGINX access log file path
 - Changed NGINX access log to use verbose formatting (ME-518)
 
 ##### Features
+- Added Elasticsearch component (ME-504)
 - Added NGINX status page and Logstash log forwarding (ME-516)
 
 ## v1.2.1 (2017-03-01)
