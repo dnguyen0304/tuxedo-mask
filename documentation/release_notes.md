@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.3.0 (Pending)
+##### Features
+- ME-516: Added NGINX status page and Logstash log forwarding
+
 ## v1.2.1 (2017-03-01)
 ##### Bug Fixes
 - Fixed Logstash Upstart configuration file for development using `bash` instead of `sh`
