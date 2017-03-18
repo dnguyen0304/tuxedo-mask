@@ -2,9 +2,7 @@
 
 set -e
 
-tuxedo_mask_environment=${TUXEDO_MASK_ENVIRONMENT,,}
-
-psql --set ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "tuxedo_mask_$tuxedo_mask_environment" <<EOF
+psql --set ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "tuxedomask" <<EOF
     DROP TABLE IF EXISTS applications;
 
     CREATE TABLE applications (

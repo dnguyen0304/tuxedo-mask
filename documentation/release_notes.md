@@ -1,5 +1,10 @@
 # Release Notes
 
+## v2.0.0 (Pending)
+##### Changes
+- Removed configurable environment in PostgreSQL Dockerfile
+- Changed project name in Docker Hub repository and PostgreSQL Dockerfile
+
 ## v1.3.0 (2017-03-02)
 ##### Changes
 - Changed NGINX access log file path

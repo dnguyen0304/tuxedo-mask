@@ -11,13 +11,12 @@ $ cd tuxedo-mask/
 ```
 
 ### PostgreSQL Database
-A Docker image is available in a [public Docker Hub repository](https://hub.docker.com/r/dnguyen0304/tuxedo-mask-postgresql/).
+A Docker image is available in a [public Docker Hub repository](https://hub.docker.com/r/dnguyen0304/tuxedomask-postgresql/).
 ```
-$ sudo docker pull dnguyen0304/tuxedo-mask-postgresql:latest
+$ sudo docker pull dnguyen0304/tuxedomask-postgresql:latest
 $ sudo docker run --detach --name postgres --publish 5432:5432 \
 > --env POSTGRES_PASSWORD=postgres \
-> --env TUXEDO_MASK_ENVIRONMENT="Development" \
-> dnguyen0304/tuxedo-mask-postgresql:latest
+> dnguyen0304/tuxedomask-postgresql:latest
 ```
 
 To build a Docker container from source, run
