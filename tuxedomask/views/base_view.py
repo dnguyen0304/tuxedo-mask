@@ -3,7 +3,7 @@
 import marshmallow
 from marshmallow import fields
 
-from tuxedo_mask import models
+from tuxedomask import models
 
 
 class BaseView(marshmallow.Schema):

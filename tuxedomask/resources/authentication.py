@@ -5,7 +5,7 @@ import bcrypt
 import flask
 import flask_httpauth
 
-from tuxedo_mask import services
+from tuxedomask import services
 
 authentication = flask_httpauth.HTTPBasicAuth()
 
@@ -14,7 +14,7 @@ authentication = flask_httpauth.HTTPBasicAuth()
 def get_password(username):
 
     service = services.TuxedoMaskService.from_configuration()
-    application = service.applications.get_by_name('tuxedo_mask')
+    application = service.applications.get_by_name('tuxedomask')
     user = service.users.get_by_username(username=username,
                                          application=application)
 

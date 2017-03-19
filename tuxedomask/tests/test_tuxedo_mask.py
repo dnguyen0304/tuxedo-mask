@@ -13,7 +13,7 @@ from nose.tools import (assert_equal,
                         assert_is_not_none,
                         assert_true)
 
-from tuxedo_mask import utilities
+from tuxedomask import utilities
 
 
 class TestLoggingConfiguration:

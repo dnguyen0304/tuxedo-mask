@@ -4,9 +4,9 @@ import bcrypt
 
 from sqlalchemy import orm
 
-import tuxedo_mask
+import tuxedomask
 from . import TuxedoMaskBaseRepository
-from tuxedo_mask import models, repositories
+from tuxedomask import models, repositories
 
 
 class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
@@ -52,9 +52,9 @@ class TuxedoMaskUsersRepository(TuxedoMaskBaseRepository):
             Hashed password.
         """
 
-        iterations = (tuxedo_mask.configuration['services']
-                                               ['tuxedo_mask']
-                                               ['bcrypt_cost_factor'])
+        iterations = (tuxedomask.configuration['services']
+                                              ['tuxedomask']
+                                              ['bcrypt_cost_factor'])
         salt = bcrypt.gensalt(rounds=iterations)
         hashed_password = bcrypt.hashpw(password=password, salt=salt)
         return hashed_password

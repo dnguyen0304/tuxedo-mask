@@ -5,7 +5,7 @@ import datetime
 from nose.tools import assert_equal, assert_true
 
 from . import BaseTestCase
-from tuxedo_mask import models, views
+from tuxedomask import models, views
 
 
 class TestBaseView(BaseTestCase):

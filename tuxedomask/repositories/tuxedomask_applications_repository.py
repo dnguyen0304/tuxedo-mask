@@ -3,7 +3,7 @@
 from sqlalchemy import orm
 
 from . import TuxedoMaskBaseRepository
-from tuxedo_mask import models, repositories
+from tuxedomask import models, repositories
 
 
 class TuxedoMaskApplicationsRepository(TuxedoMaskBaseRepository):

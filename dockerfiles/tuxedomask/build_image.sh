@@ -36,7 +36,7 @@ mkdir .build
 mkdir .build/${PACKAGE_NAME}
 
 # Include the source code.
-cp -r ${REPOSITORY_ROOT}/tuxedo_mask .build/${PACKAGE_NAME}
+cp -r ${REPOSITORY_ROOT}/tuxedomask .build/${PACKAGE_NAME}
 
 # Include the dependencies.
 apt-get update -y

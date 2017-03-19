@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import BaseTestCase
-from tuxedo_mask import models, views
+from tuxedomask import models, views
 
 
 class TestApplicationsView(BaseTestCase):

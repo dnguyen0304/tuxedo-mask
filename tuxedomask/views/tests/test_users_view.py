@@ -7,8 +7,8 @@ import marshmallow
 from nose.tools import assert_equal, assert_in, assert_true, raises
 
 from . import BaseTestCase
-from tuxedo_mask import models, views
-from tuxedo_mask.views import users_view
+from tuxedomask import models, views
+from tuxedomask.views import users_view
 
 
 class TestContainsAtLeast:

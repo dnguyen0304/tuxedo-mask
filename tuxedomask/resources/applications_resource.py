@@ -5,7 +5,7 @@ import http
 import flask
 import flask_restful
 
-from tuxedo_mask import views
+from tuxedomask import views
 
 
 class ApplicationsResource(flask_restful.Resource):
@@ -30,8 +30,8 @@ class ApplicationsCollectionResource(flask_restful.Resource):
         users_view = views.UsersView()
         users_view.fields['username'].load_from = 'name'
 
-        tuxedo_mask_application = flask.g.service.applications.get_by_name(
-            name='tuxedo_mask')
+        tuxedomask_application = flask.g.service.applications.get_by_name(
+            name='tuxedomask')
         application = (
             views.ApplicationsView().load(data=flask.request.get_json()).data)
         user = users_view.load(data=flask.request.get_json()).data
@@ -42,10 +42,10 @@ class ApplicationsCollectionResource(flask_restful.Resource):
             'application_encoded_password': flask.request.get_json()['password']})
         flask.g.logger.info('', extra=flask.g.message)
 
-        user.applications_id = tuxedo_mask_application.applications_id
+        user.applications_id = tuxedomask_application.applications_id
         flask.g.service.applications.add(entity=application,
-                                         by=tuxedo_mask_application)
-        flask.g.service.users.add(entity=user, by=tuxedo_mask_application)
+                                         by=tuxedomask_application)
+        flask.g.service.users.add(entity=user, by=tuxedomask_application)
         flask.g.service.commit()
 
         flask.g.http_status_code = http.HTTPStatus.CREATED

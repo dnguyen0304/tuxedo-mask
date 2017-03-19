@@ -6,7 +6,7 @@ from nose.tools import (assert_is_instance,
                         assert_true,
                         raises)
 
-from tuxedo_mask import repositories
+from tuxedomask import repositories
 
 
 class MockEntity:

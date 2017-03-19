@@ -4,7 +4,7 @@
 import setuptools
 
 if __name__ == '__main__':
-    package_name = 'tuxedo_mask'
+    package_name = 'tuxedomask'
 
     description = ('A lightweight, minimalist Identity and Access Management '
                    'microservice.')

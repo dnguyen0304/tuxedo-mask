@@ -4,7 +4,7 @@
 ##### Changes
 - Removed Tuxedo Mask Docker Hub repository
 - Removed configurable environment in PostgreSQL Dockerfile
-- Changed project name in Docker Hub repository and PostgreSQL Dockerfile
+- Changed project name to "tuxedomask"
 - Changed to container deployment
 
 ##### Features
@@ -34,7 +34,7 @@
 - Changed to message specification
 
 ##### Features
-- Added `tuxedo_mask.utilities.StackTraceFilter`
+- Added `tuxedomask.utilities.StackTraceFilter`
 - Added default Tuxedo Mask configuration values for development
 - Added default Tuxedo Mask configuration values for testing
 - Added release notes

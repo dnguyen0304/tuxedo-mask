@@ -12,7 +12,7 @@ import flask
 import flask_restful
 import marshmallow
 
-from tuxedo_mask import repositories, services, resources
+from tuxedomask import repositories, services, resources
 
 app = flask.Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True

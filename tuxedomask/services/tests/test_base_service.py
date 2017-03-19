@@ -4,7 +4,7 @@ import base64
 
 from nose.tools import assert_is_instance, assert_true, assert_tuple_equal
 
-from tuxedo_mask import services
+from tuxedomask import services
 
 
 class TestBaseClient:

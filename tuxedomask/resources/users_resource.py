@@ -6,7 +6,7 @@ import flask
 import flask_restful
 
 from . import authentication
-from tuxedo_mask import views
+from tuxedomask import views
 
 
 class UsersCollectionResource(flask_restful.Resource):

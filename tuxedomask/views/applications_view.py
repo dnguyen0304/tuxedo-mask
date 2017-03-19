@@ -4,7 +4,7 @@ import marshmallow
 from marshmallow import fields, validate
 
 from . import BaseView
-from tuxedo_mask import models
+from tuxedomask import models
 
 
 error_messages = {

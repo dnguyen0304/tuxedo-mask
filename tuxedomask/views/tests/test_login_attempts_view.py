@@ -4,7 +4,7 @@ import sys
 
 from nose.tools import assert_equal, assert_true
 
-from tuxedo_mask import views
+from tuxedomask import views
 
 
 def test_prepend_authentication_scheme():

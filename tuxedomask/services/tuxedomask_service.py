@@ -7,7 +7,7 @@ import sqlalchemy
 from common import database
 
 from . import BaseService
-from tuxedo_mask import configuration, repositories
+from tuxedomask import configuration, repositories
 
 
 class TuxedoMaskService(BaseService):
@@ -18,7 +18,7 @@ class TuxedoMaskService(BaseService):
     @classmethod
     def from_configuration(cls):
         logger = logging.getLogger(
-            name=configuration['services']['tuxedo_mask']['logger_name'])
+            name=configuration['services']['tuxedomask']['logger_name'])
         db_context = cls._db_context_factory.create()
         my_repositories = {
             'applications_repository': repositories.TuxedoMaskApplicationsRepository,

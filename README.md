@@ -4,8 +4,8 @@ A lightweight, minimalist Identity and Access Management microservice.
 ## Getting Started
 ### General
 ```
-$ git clone https://github.com/dnguyen0304/tuxedo-mask.git
-$ cd tuxedo-mask/ 
+$ git clone https://github.com/dnguyen0304/tuxedo-mask.git tuxedomask
+$ cd tuxedomask
 ```
 
 ### PostgreSQL
@@ -38,7 +38,7 @@ Configuration
 When building from source or outside a Docker container, to set the environment variables for the current and all future shell sessions, from the terminal run
 ```
 $ echo 'export TUXEDOMASK_ENVIRONMENT="Development"' >> ~/.bashrc
-$ echo 'export TUXEDOMASK_CONFIGURATION_FILE_PATH=/opt/tuxedo-mask/configuration/tuxedo_mask.development.config"' >> ~/.bashrc
+$ echo 'export TUXEDOMASK_CONFIGURATION_FILE_PATH=/opt/tuxedomask/configuration/tuxedomask.development.config"' >> ~/.bashrc
 $ source ~/.bashrc
 ```
 
@@ -49,7 +49,7 @@ Below is the list of acceptable values. Note they are case-sensitive.
 - Development
 
 ### File
-The file stubs are located in `tuxedo_mask/configuration`.
+The file stubs are located in `tuxedomask/configuration`.
 - `components.hashing.iterations`: Number of iterations to run the salting algorithm.
 - `databases.postgresql.connection_string`: Formatted string containing the host and authentication information. See the [SQLAlchemy Engine Configuration documentation](http://docs.sqlalchemy.org/en/latest/core/engines.html) for more details.
 
@@ -59,7 +59,7 @@ Examples
 ```
 import logging
 
-from tuxedo_mask import utilities
+from tuxedomask import utilities
 
 with utilities.Tracer('my_next_function_or_method') as tracer:
     my_next_function_or_method()

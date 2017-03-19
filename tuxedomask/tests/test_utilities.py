@@ -4,7 +4,7 @@ import logging
 
 from nose.tools import assert_false, assert_true
 
-from tuxedo_mask import utilities
+from tuxedomask import utilities
 
 
 class TestStackTraceFilter:
