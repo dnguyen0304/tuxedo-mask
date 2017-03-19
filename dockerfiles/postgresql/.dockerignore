@@ -1,1 +1,4 @@
+Dockerfile
+.dockerignore
+
 build_image.sh
