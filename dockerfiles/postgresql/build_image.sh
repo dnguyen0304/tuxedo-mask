@@ -2,6 +2,8 @@
 
 set -e
 
+cd $(dirname $0)
+
 cp ../../scripts/postgresql/* .
 
 docker build --file Dockerfile .
