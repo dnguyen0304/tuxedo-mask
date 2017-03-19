@@ -2,11 +2,15 @@
 
 ## v2.0.0 (Pending)
 ##### Changes
+- Removed Tuxedo Mask Docker Hub repository
 - Removed configurable environment in PostgreSQL Dockerfile
 - Changed project name in Docker Hub repository and PostgreSQL Dockerfile
+- Changed to container deployment
 
 ##### Features
+- Added entry point
 - Added script for building PostgreSQL images
+- Added script for building Tuxedo Mask images
 
 ## v1.3.0 (2017-03-02)
 ##### Changes
