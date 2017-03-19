@@ -47,9 +47,6 @@ virtualenv --python /usr/local/bin/python3.6 .build/virtual-environment
 # Include the configuration.
 cp -r ${REPOSITORY_ROOT}/configuration .build/${PACKAGE_NAME}
 
-# Include the entry point.
-cp ${REPOSITORY_ROOT}/scripts/entry_point/main.py .build/${PACKAGE_NAME}
-
 # Compress the package.
 cd .build/${PACKAGE_NAME}
 zip -9r ${PACKAGE_NAME}.zip *

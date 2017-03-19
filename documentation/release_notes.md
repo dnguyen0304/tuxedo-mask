@@ -8,7 +8,6 @@
 - Changed to container deployment
 
 ##### Features
-- Added entry point
 - Added script for building PostgreSQL images
 - Added script for building Tuxedo Mask images
 
