@@ -19,9 +19,9 @@ $ sudo docker run --detach --name postgres --publish 5432:5432 \
 > dnguyen0304/tuxedomask-postgresql:latest
 ```
 
-To build a Docker container from source, run
+To build a Docker image from source, run
 ```
-$ sudo docker build --file dockerfiles/postgresql/Dockerfile .
+$ sudo ./postgresql/build_image.sh
 ```
 
 ### Python Package
@@ -36,7 +36,7 @@ $ sudo docker run -it --rm \
 
 See the section on [Shell Environment Configuration](#shell-environment) for more details.
 
-To build a Docker container from source, run
+To build a Docker image from source, run
 ```
 $ sudo docker build --file dockerfiles/python/Dockerfile .
 ```

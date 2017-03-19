@@ -5,6 +5,9 @@
 - Removed configurable environment in PostgreSQL Dockerfile
 - Changed project name in Docker Hub repository and PostgreSQL Dockerfile
 
+##### Features
+- Added script for building PostgreSQL images
+
 ## v1.3.0 (2017-03-02)
 ##### Changes
 - Changed NGINX access log file path
