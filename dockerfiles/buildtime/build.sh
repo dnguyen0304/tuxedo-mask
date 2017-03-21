@@ -25,7 +25,7 @@ docker run \
     ${NAMESPACE}-uwsgi/buildtime:${BRANCH}
 
 # Include Tuxedo Mask.
-cp -r ../../configuration t com${NAMESPACE}
+cp -r ../../configuration ${NAMESPACE}
 
 docker build \
     --file ${NAMESPACE}/Dockerfile \
