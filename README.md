@@ -19,7 +19,7 @@ $ sudo docker run --detach --name postgres --publish 5432:5432 \
 
 To build a Docker image from source, run
 ```
-$ cd dockerfiles
+$ cd docker
 $ sudo ./postgresql/build_image.sh
 ```
 
