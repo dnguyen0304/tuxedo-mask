@@ -16,7 +16,7 @@ mkdir build
 
 # Include uWSGI.
 docker build \
-    --file "${BUILD_ROOT}/uwsgi/Dockerfile_buildtime" \
+    --file "${BUILD_ROOT}/uwsgi/Dockerfile" \
     --tag ${NAMESPACE}-uwsgi/buildtime:latest \
     uwsgi
 docker run --volume ${BUILD_ROOT}/build:/tmp/build ${NAMESPACE}-uwsgi/buildtime:latest
