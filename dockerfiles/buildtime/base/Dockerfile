@@ -3,11 +3,11 @@ FROM python:3.6-slim
 MAINTAINER Duy Nguyen <dnguyen0304@gmail.com>
 
 ARG SHARED_VOLUME="/tmp/build"
-ARG RUNTIME_DEPENDENCIES="build-essential"
 
 ENV SHARED_VOLUME=${SHARED_VOLUME}
 
-RUN apt-get update -y && \
+RUN RUNTIME_DEPENDENCIES="build-essential" && \
+    apt-get update -y && \
     apt-get install -y --no-install-recommends ${RUNTIME_DEPENDENCIES}
 
 RUN mkdir ${SHARED_VOLUME} && \
