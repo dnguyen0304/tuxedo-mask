@@ -3,10 +3,11 @@
 set -eu
 
 COMPONENT="tuxedomask"
+BRANCH=$1
 
 git clone https://github.com/dnguyen0304/tuxedo-mask.git ${COMPONENT}
 cd ${COMPONENT}
-git checkout $1
+git checkout ${BRANCH}
 cd ..
 
 PACKAGE="${COMPONENT}-$(grep -Po "version='\K\d\.\d\.\d" ${COMPONENT}/setup.py)"
