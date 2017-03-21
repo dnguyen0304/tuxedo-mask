@@ -8,6 +8,7 @@
 - Changed to container deployment
 
 ##### Features
+- Added container for building uWSGI
 - Added script for building PostgreSQL images
 - Added script for building Tuxedo Mask images
 
