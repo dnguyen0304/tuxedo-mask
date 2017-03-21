@@ -36,7 +36,7 @@ RUN mkdir --parents /opt/${NAMESPACE} && \
 WORKDIR /opt/${NAMESPACE}
 
 RUN mv /tmp/${PACKAGE_NAME} . && \
-    unzip ${PACKAGE_NAME} && \
+    unzip -q ${PACKAGE_NAME} && \
     chown --recursive ${NAMESPACE}:${NAMESPACE} . && \
     chown --recursive ${NAMESPACE}:${NAMESPACE} /var/log/${NAMESPACE}
 

@@ -49,7 +49,7 @@ cp -r ${REPOSITORY_ROOT}/configuration .build/${PACKAGE_NAME}
 
 # Compress the package.
 cd .build/${PACKAGE_NAME}
-zip -9r ${PACKAGE_NAME}.zip *
+zip -9qr ${PACKAGE_NAME}.zip *
 mv ${PACKAGE_NAME}.zip ${BUILD_ROOT}
 cd ${BUILD_ROOT}
 
