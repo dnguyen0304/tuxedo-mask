@@ -11,6 +11,9 @@
 - Added script for building PostgreSQL images
 - Added script for building Tuxedo Mask images
 
+##### Fixes
+- Fixed `setup.py` including nonessential dependencies
+
 ## v1.3.0 (2017-03-02)
 ##### Changes
 - Changed NGINX access log file path
