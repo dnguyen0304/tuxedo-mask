@@ -2,6 +2,8 @@
 
 set -eu
 
+COMPONENT="uwsgi"
+
 python -m venv virtual-environment
 virtual-environment/bin/pip install --requirement requirements.txt
-cp virtual-environment/bin/uwsgi ${SHARED_VOLUME}
+cp virtual-environment/bin/${COMPONENT} ${SHARED_VOLUME}
