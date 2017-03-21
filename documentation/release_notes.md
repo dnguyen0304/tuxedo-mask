@@ -8,9 +8,10 @@
 - Changed to container deployment
 
 ##### Features
+- Added base container for building
+- Added container for building Tuxedo Mask
 - Added container for building uWSGI
 - Added script for building PostgreSQL images
-- Added script for building Tuxedo Mask images
 
 ##### Fixes
 - Fixed `setup.py` including nonessential dependencies
