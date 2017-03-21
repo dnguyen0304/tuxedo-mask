@@ -17,20 +17,20 @@ mkdir build
 
 # Include uWSGI.
 docker build \
-    --file uwsgi/Dockerfile \
+    --file buildtime/uwsgi/Dockerfile \
     --tag ${NAMESPACE}-uwsgi/buildtime:${BRANCH} \
-    uwsgi
+    buildtime/uwsgi
 docker run \
     --volume ${BUILD_ROOT}/build:/tmp/build \
     ${NAMESPACE}-uwsgi/buildtime:${BRANCH}
 
 # Include Tuxedo Mask.
-cp -r ../../configuration t com${NAMESPACE}
+cp -r ../configuration buildtime/${NAMESPACE}
 
 docker build \
-    --file ${NAMESPACE}/Dockerfile \
+    --file buildtime/${NAMESPACE}/Dockerfile \
     --tag ${NAMESPACE}-${NAMESPACE}/buildtime:${BRANCH} \
-    ${NAMESPACE}
+    buildtime/${NAMESPACE}
 docker run \
     --volume ${BUILD_ROOT}/build:/tmp/build \
     ${NAMESPACE}-${NAMESPACE}/buildtime:${BRANCH} \
@@ -38,4 +38,4 @@ docker run \
 
 # Tear down the build environment.
 rm -r build
-rm -r ${NAMESPACE}/configuration
+rm -r buildtime/${NAMESPACE}/configuration
