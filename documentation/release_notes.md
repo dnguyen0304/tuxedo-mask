@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.3.1 (Pending)
+##### Fixes
+- Fixed `setup.py` including nonessential dependencies
+
 ## v1.3.0 (2017-03-02)
 ##### Changes
 - Changed NGINX access log file path
