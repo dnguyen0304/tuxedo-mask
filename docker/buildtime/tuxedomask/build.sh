@@ -24,6 +24,6 @@ cp -r configuration ${PACKAGE}
 
 # Compress the package.
 cd ${PACKAGE}
-zip -9qr ${PACKAGE}.zip *
+zip -9qr ${PACKAGE}.zip .
 cp ${PACKAGE}.zip ${COMPONENT}-latest.zip
 mv ${COMPONENT}-*.zip ${SHARED_VOLUME}
