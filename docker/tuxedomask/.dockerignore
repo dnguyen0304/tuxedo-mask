@@ -1,5 +1,0 @@
-Dockerfile
-.dockerignore
-
-build_image.sh
-*-latest.zip

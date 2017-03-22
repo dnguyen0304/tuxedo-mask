@@ -1,0 +1,7 @@
+.dockerignore
+Dockerfile
+
+*
+
+!build/*-latest.zip
+!build/uwsgi

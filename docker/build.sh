@@ -9,10 +9,22 @@ cd $(dirname $0)
 
 BUILD_ROOT=$(pwd)
 
-# Set up the build environment.
-if [ -d build ]; then
-    rm -r build
-fi
+remove_directories() {
+
+    directories=( "$@" )
+    counter=${#directories[@]}
+
+    for (( i=0; i<${counter}; i++ ));
+    do
+        if [ -d ${directories[$i]} ]; then
+            rm -r ${directories[$i]}
+        fi
+    done
+
+}
+
+# Set up the buildtime environment.
+remove_directories "build" "runtime/${NAMESPACE}/build"
 mkdir build
 
 # Include uWSGI.
@@ -36,6 +48,23 @@ docker run \
     ${NAMESPACE}-${NAMESPACE}/buildtime:${BRANCH} \
     ${BRANCH}
 
-# Tear down the build environment.
-rm -r build
-rm -r buildtime/${NAMESPACE}/configuration
+# Build the runtime container.
+mv build runtime/${NAMESPACE}
+
+environments=( "development" "testing" )
+counter=${#environments[@]}
+
+for (( i=0; i<${counter}; i++ ));
+do
+    docker build \
+        --file runtime/${NAMESPACE}/Dockerfile \
+        --tag dnguyen0304/${NAMESPACE}-${BRANCH}:${environments[$i]} \
+        --build-arg NAMESPACE=${NAMESPACE} \
+        --build-arg ENVIRONMENT=${environments[$i]^} \
+        --build-arg UWSGI_CONFIGURATION_FILE_NAME="uwsgi.${environments[$i]}.config" \
+        --build-arg TUXEDOMASK_CONFIGURATION_FILE_NAME="tuxedomask.${environments[$i]}.config" \
+        runtime/${NAMESPACE}
+done
+
+# Tear down the buildtime environment.
+remove_directories "buildtime/${NAMESPACE}/configuration" "runtime/${NAMESPACE}/build"

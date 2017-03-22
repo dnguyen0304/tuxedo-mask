@@ -11,6 +11,7 @@
 - Added base container for building
 - Added container for building Tuxedo Mask
 - Added container for building uWSGI
+- Added container for running Tuxedo Mask
 - Added script for building PostgreSQL images
 
 ##### Fixes
