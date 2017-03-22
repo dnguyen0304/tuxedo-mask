@@ -24,7 +24,7 @@ remove_directories() {
 }
 
 # Set up the buildtime environment.
-remove_directories "build" "runtime/${NAMESPACE}/build"
+remove_directories "build" "buildtime/${NAMESPACE}/configuration" "runtime/${NAMESPACE}/build"
 mkdir build
 
 # Include uWSGI.
@@ -65,6 +65,3 @@ do
         --build-arg TUXEDOMASK_CONFIGURATION_FILE_NAME="tuxedomask.${environments[$i]}.config" \
         runtime/${NAMESPACE}
 done
-
-# Tear down the buildtime environment.
-remove_directories "buildtime/${NAMESPACE}/configuration" "runtime/${NAMESPACE}/build"
