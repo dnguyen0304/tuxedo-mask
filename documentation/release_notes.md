@@ -6,6 +6,7 @@
 - Removed configurable environment in PostgreSQL Dockerfile
 - Changed project name to "tuxedomask"
 - Changed to container deployment
+- Changed web server to uWSGI
 
 ##### Features
 - Added base container for building

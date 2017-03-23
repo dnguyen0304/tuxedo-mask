@@ -9,6 +9,8 @@ ARG ENVIRONMENT
 ARG UWSGI_CONFIGURATION_FILE_NAME
 ARG TUXEDOMASK_CONFIGURATION_FILE_NAME
 
+ENV NAMESPACE=${NAMESPACE}
+
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends ${BUILDTIME_DEPENDENCIES}
 
@@ -42,4 +44,6 @@ RUN mv /tmp/.build/${PACKAGE} . && \
 RUN rm -fr /var/lib/apt/lists/* && \
     apt-get purge -y --auto-remove ${BUILDTIME_DEPENDENCIES}
 
-USER ${NAMESPACE}
+EXPOSE 80
+
+ENTRYPOINT ["/bin/sh", "-c", "uwsgi --ini ${UWSGI_CONFIGURATION_FILE_PATH}"]

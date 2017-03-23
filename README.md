@@ -12,9 +12,10 @@ $ cd tuxedomask
 A Docker image is available in a [public Docker Hub repository](https://hub.docker.com/r/dnguyen0304/tuxedomask-postgresql/).
 ```
 $ sudo docker pull dnguyen0304/tuxedomask-postgresql:latest
-$ sudo docker run --detach --name postgres --publish 5432:5432 \
-> --env POSTGRES_PASSWORD=postgres \
-> dnguyen0304/tuxedomask-postgresql:latest
+$ sudo docker run \
+>   --detach \
+>   --env POSTGRES_PASSWORD=postgres \
+>   dnguyen0304/tuxedomask-postgresql:latest
 ```
 
 To build a Docker image from source, run
@@ -28,8 +29,12 @@ See the section on [Shell Environment Configuration](#shell-environment) for mor
 
 To build a Docker image from source, run
 ```
-$ cd dockerfiles
-$ sudo ./tuxedomask/build_image.sh
+$ cd docker
+$ sudo ./build.sh
+$ sudo docker run \
+>   --detach \
+>   --publish 9090:80 \
+>   dnguyen0304/tuxedomask-{branch}:{environment}
 ```
 
 Configuration
