@@ -22,9 +22,12 @@ flexible. This option is usually applied in tandem with `--callable`. See also `
 ##### `gid`
 - Change the privileges to the specified group.
 - This option is usually applied in tandem with `--uid`. See also `uid`.
-##### `logto2`
-- File path to which log records will be written after privileges are changed by `--uid`.
-- This option is usually applied in tandem with `--uid`. See also `logto` and `uid`.
+##### `logto`
+- File path to which log records will be written.
+- The file permissions are not affected by `uid` or `gid`.
+##### `logfile-chown`
+- Change the log file permissions.
+- The is functionally similar but clearer than `logto2`. Depends on `logto`, `uid`, and `gid`.
 ##### `enable-threads`
 - Use threads and most importantly the global interpreter lock (GIL).
 ##### `vacuum`
@@ -53,9 +56,7 @@ flexible. This option is usually applied in tandem with `--callable`. See also `
 ##### `http-timeout`
 ##### `http-uid`
 ##### `lazy-apps`
-##### `logto`
-- File path to which log records will be written before privileges are changed by `--uid`.
-- This option is usually applied in tandem with `--uid`. See also `logto2` and `uid`.
+##### `logto2`
 ##### `master`
 ##### `memory-report`
 ##### `need-plugin`
