@@ -22,6 +22,15 @@ flexible. This option is usually applied in tandem with `--callable`. See also `
 ##### `gid`
 - Change the privileges to the specified group.
 - This option is usually applied in tandem with `--uid`. See also `uid`.
+##### `logger`
+```
+logger = [<name>] <plugin>:<file_name_or_path>
+```
+- Log all (access and error) messages.
+##### `req-logger`
+- Log only access messages.
+- Specify a name if log routing is necessary. See also `log-req-route`.
+##### `log-format`
 ##### `logto`
 - File path to which log records will be written.
 - The file permissions are not affected by `uid` or `gid`.
@@ -45,10 +54,12 @@ flexible. This option is usually applied in tandem with `--callable`. See also `
 - Write the configuration to the output.
 
 #### Could Set (In Development Only)
+##### `logger-list`
 ##### `plugin-list`
 ##### `print`
 
 #### Won't Set
+##### `daemonize`
 ##### `harakiri`
 ##### `http-gid`
 ##### `http-processes`
@@ -56,6 +67,8 @@ flexible. This option is usually applied in tandem with `--callable`. See also `
 ##### `http-timeout`
 ##### `http-uid`
 ##### `lazy-apps`
+##### `log-master`
+##### `log-maxsize`
 ##### `logto2`
 ##### `master`
 ##### `memory-report`
@@ -63,11 +76,37 @@ flexible. This option is usually applied in tandem with `--callable`. See also `
 - Exit if the plugin cannot be loaded successfully.
 - See also `plugin`.
 ##### `plugin`
-- The `http` and `python` plugins are embedded when uWSGI is installed using `pip`.
+- The `file`, `http`, and `python` plugins are embedded when uWSGI is installed using `pip`.
 - See also `need-plugin`.
 ##### `processes`
 ##### `single-interpreter`
 ##### `strict`
+##### `threaded-logger`
 ##### `threads`
 ##### `thunder-lock`
 ##### `touch-reload`
+
+
+##### `log-prefix`
+
+
+##### `log-zero`
+##### `log-slow`
+##### `log-4xx`
+##### `log-5xx`
+##### `log-big`
+
+##### `log-sendfile`
+##### `log-ioerror`
+
+##### `log-route`
+```
+log-route = <logger_name> <regular_expression>
+```
+- See also `logger`.
+##### `log-req-route`
+- See also `req-logger`.
+
+# only if you don't use format
+##### `log-date`
+##### `log-format-strftime`
